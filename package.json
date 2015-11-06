@@ -1,0 +1,22 @@
+{
+  "name": "simpleChat",
+  "version": "1.0.0",
+  "description": "Simple chat with nodejs and websockets",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ca11ado/simpleChat.git"
+  },
+  "keywords": [
+    "javascript"
+  ],
+  "author": "Khimtsov Anton",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ca11ado/simpleChat/issues"
+  },
+  "homepage": "https://github.com/ca11ado/simpleChat"
+}
