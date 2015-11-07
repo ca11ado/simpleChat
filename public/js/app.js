@@ -3,6 +3,12 @@
  */
 
 let chat = require('./chat/chat');
+let ws = require('./chat/websocket');
 
-//console.log(chat);
 console.log('start app');
+
+ws.connect('ws://localhost:8080');
+
+ws.on('myMsg', function (data) {
+  console.log('New myMsg message', data);
+});
