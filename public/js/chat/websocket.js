@@ -2,15 +2,10 @@
  * Created by tos on 07.11.2015.
  */
 
-let keyMirror = require('keymirror');
-var EventEmitter = require('events').EventEmitter;
-var assign = require('object-assign');
-
-let _socket;
-let types = keyMirror({
-  NEW: null,
-  MESSAGE: null
-});
+let _socket,
+    _events = {};
+const WS_TYPE_NEW = 'new',
+      WS_TYPE_MSG = "message";
 
 function message(type,data) {
   switch (type) {
@@ -25,20 +20,21 @@ function message(type,data) {
   }
 }
 
-let WS = assign({}, EventEmitter.prototype, {
+let WS = {
 
   connect: function(url) {
+    console.log('starting ws');
     if (_socket) return Error('Уже есть соединение');
 
     _socket = new WebSocket(url);
 
     _socket.onopen = function() {
-      _socket.send('Hello world');
+      _socket.send('Hello world2');
     };
     _socket.onclose = function(event) { console.log('Код: ' + event.code + ' причина: ' + event.reason); };
     _socket.onmessage = function(event) {
-      WS.emit('myMsg', event.data);
-      //console.log("Получены данные " + event.data);
+      WS.emitMsg('myMsg', event.data);
+      console.log("Получены данные" + event.data);
     };
     _socket.onerror = function(error) { console.log("Ошибка " + error.message); };
 
@@ -47,9 +43,20 @@ let WS = assign({}, EventEmitter.prototype, {
 
   getSocket: function() {
     return _socket;
+  },
+
+  onMsg: function(event, callback) {
+    _events[event] = _events[event] ? _events[event].push(callback) : [];
+  },
+
+  emitMsg: function(event, arg) {
+    if (_events.hasOwnProperty(event)) {
+      _events[event].map(function(v){
+        v(arg);
+      });
+    }
   }
 
-});
-
+};
 
 module.exports = WS;
