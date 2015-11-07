@@ -55,6 +55,10 @@ let WS = {
         v(arg);
       });
     }
+  },
+
+  sendTestMsg: function(txt) {
+    _socket.send(txt);
   }
 
 };
