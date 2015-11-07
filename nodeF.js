@@ -7,13 +7,14 @@ var WebSocket = require('faye-websocket');
 
 
 var server = http.createServer(function (request, response) {
-    request.addListener('end', function () {
-        fileServer.serve(request, response, function (e, res) {
-            /*if (e && (e.status === 404)) { // If the file wasn't found
-                fileServer.serveFile('./public/not-found.html', 404, {}, request, response);
-            }*/
-        });
-    }).resume();
+  request.addListener('end', function () {
+    fileServer.serve(request, response, function (e, res) {
+      /*if (e && (e.status === 404)) { // If the file wasn't found
+        console.log(e);
+        fileServer.serveFile('./public/not-found.html', 404, {}, request, response);
+      }*/
+    });
+  }).resume();
 }).listen(8080);
 
 server.on('upgrade', function(request, socket, body) {
