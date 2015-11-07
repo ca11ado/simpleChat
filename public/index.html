@@ -3,13 +3,26 @@
 <head>
     <title>Simple Chat</title>
     <meta charset="utf-8">
-    <script src="js/bundle.js"></script>
 </head>
 
 <body>
 <h2>Please, enter your name!</h2>
 <input />
 
+<script src="sockjs-1.0.3.js"></script>
+<script>
+    var socket = new WebSocket('ws://localhost:8080/websocket');
+    //var socket = new SockJS('//localhost:8080/websocket');
+    setTimeout(function () {
+        socket.send('Hello world');
+    }, 2000);
+
+    socket.onopen = function() { console.log("Соединение установлено."); };
+    socket.onclose = function(event) { console.log('Код: ' + event.code + ' причина: ' + event.reason); };
+    socket.onmessage = function(event) { console.log("Получены данные " + event.data); };
+    socket.onerror = function(error) { console.log("Ошибка " + error.message); };
+</script>
+<script src="js/bundle.js"></script>
 </body>
 
 </html>

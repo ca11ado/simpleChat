@@ -1,8 +1,10 @@
 var http = require('http');
 var static = require('node-static');
 var fileServer = new static.Server('./public', { cache: 0 });
-var sockjs = require('sockjs');
-var sockjsServer = sockjs.createServer();
+
+var WebSocket = require('faye-websocket');
+
+
 
 var server = http.createServer(function (request, response) {
     request.addListener('end', function () {
@@ -14,22 +16,17 @@ var server = http.createServer(function (request, response) {
     }).resume();
 }).listen(8080);
 
-sockjsServer.installHandlers(server, {prefix:'/websocket', log:sockLog});
+server.on('upgrade', function(request, socket, body) {
+  if (WebSocket.isWebSocket(request)) {
+    var ws = new WebSocket(request, socket, body);
 
-sockjsServer.on('connection', function (conn) {
-    conn.on('data', function(e) {
-        console.log('CONNECTIOIN: data', e);
-        //conn.write(message);
+    ws.on('message', function(event) {
+      ws.send(event.data);
     });
-    conn.on('close', function(e) {
-        console.log('CONNECTIOIN: close', e);
+
+    ws.on('close', function(event) {
+      console.log('close', event.code, event.reason);
+      ws = null;
     });
-    conn.on('error', function(e) {
-        console.log('CONNECTIOIN: error', e);
-    });
+  }
 });
-
-function sockLog(a,b){
-    console.log('A',a);
-    console.log('B',b);
-}

@@ -4,4 +4,5 @@
 
 let chat = require('./chat/chat');
 
-console.log(chat);
+//console.log(chat);
+console.log('start app');
