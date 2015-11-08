@@ -1,7 +1,8 @@
 /**
  * Created by tos on 07.11.2015.
  */
-let SChatActions = require('../actions/SChatActions');
+let SChatActions = require('../actions/SChatActions'),
+    MsgTypes = require('./Message').getMsgTypes();
 
 let _socket,
     _events = {};
@@ -31,14 +32,21 @@ let WS = {
 
     _socket.onopen = function() {
       SChatActions.connectedToWebSocket();
-      setTimeout(function () {
+      /*setTimeout(function () {
         _socket.send('New test user');
-      }, 2000);
+      }, 2000);*/
     };
     _socket.onclose = function(event) { console.log('Код: ' + event.code + ' причина: ' + event.reason); };
     _socket.onmessage = function(event) {
-      console.log("f:websocket > получены данные " + event.data);
-      SChatActions.authorized('Test');
+      console.log("f:websocket > получены данные %o", event.data);
+      //SChatActions.authorized('Test');
+      switch (event.data.type) {
+        case MsgTypes.AUTH:
+          SChatActions.authorized(event.data.userName);
+          break;
+        default:
+              //todo don't know this type
+      }
     };
     _socket.onerror = function(error) { console.log("Ошибка " + error.message); };
 
@@ -49,16 +57,10 @@ let WS = {
     return _socket;
   },
 
-  onMsg: function(event, callback) {
-    _events[event] = _events[event] ? _events[event].push(callback) : [];
-  },
-
-  emitMsg: function(event, arg) {
-    if (_events.hasOwnProperty(event)) {
-      _events[event].map(function(v){
-        v(arg);
-      });
-    }
+  sendMsg: function(msg) {
+    if (_socket) _socket.send(msg);
+    else new Error('Socket does not exist yet');
+    console.log('Send message %o', JSON.stringify(msg));
   },
 
   sendTestMsg: function(txt) {

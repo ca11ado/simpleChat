@@ -5,9 +5,9 @@
 let ws = require('./websocket.js');
 let dispatcher = require('../dispatcher/SChatDispatcher');
 
-setTimeout(function(){
+/*setTimeout(function(){
   ws.sendTestMsg('test message from chat');
-},2000);
+},2000);*/
 
 module.exports = [
   {

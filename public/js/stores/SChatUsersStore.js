@@ -20,7 +20,7 @@ let SChatUsersStore = Object.assign({}, Emitter.prototype, {
 });
 
 SChatDispatcher.register(function(action){
-    console.log('DISPATCHER registered in SChatUsersStore');
+    //console.log('DISPATCHER registered in SChatUsersStore');
     switch (action.actionType) {
         case SChatConstants.ACTIVATE_LOGIN_FORM:
             //SChatUsersStore.emit(CHANGE_EVENT);

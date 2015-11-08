@@ -13,11 +13,13 @@ module.exports = {
       });
     },
     connectedToWebSocket: function(){
+        console.log('f:SChatActions > WebSocket connected');
         SChatDispatcher.dispatch({
             actionType: SChatConstants.CONN_OPEN
         });
     },
     authorized: function(userName) {
+        console.log('f:SChatActions > user %o authorized', userName);
         SChatDispatcher.dispatch({
             actionType: SChatConstants.AUTHORIZED,
             userName: userName

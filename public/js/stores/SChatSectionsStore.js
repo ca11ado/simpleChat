@@ -36,7 +36,7 @@ let SChatSectionsStore = Object.assign({}, Emitter.prototype, {
 });
 
 SChatDispatcher.register(function(action){
-    console.log('DISPATCHER registered in SChatSectionsStore');
+    //console.log('DISPATCHER registered in SChatSectionsStore');
     switch (action.actionType) {
         case SChatConstants.CONN_OPEN:
             activateSection(SECTION_LOGIN);

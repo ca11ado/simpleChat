@@ -22,6 +22,7 @@ server.on('upgrade', function(request, socket, body) {
     var ws = new WebSocket(request, socket, body);
 
     ws.on('message', function(event) {
+      console.log(JSON.parse(event.data));
       ws.send(event.data);
     });
 
