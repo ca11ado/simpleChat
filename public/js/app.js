@@ -2,17 +2,16 @@
  * Created by tos on 06.11.2015.
  */
 
-let chat = require('./chat/chat');
-let ws = require('./chat/websocket');
-let dispatcher = require('./dispatcher/SChatDispatcher');
-let component = require('./components/SChatComponent'),
-    SChatUsersStore = require('./stores/SChatUsersStore');
+let SChatComponent = require('./components/SChatComponent'),
+    SChatUsersStore = require('./stores/SChatUsersStore'),
+    SChatWebSocketComponent = require('./components/SChatWebSocketComponent'),
+    SChatActions = require('./actions/SChatActions');
 
-console.log('start app');
+console.log('starting app');
 
-ws.connect('ws://localhost:8080');
+SChatActions.connectedToWebSocket('ws://localhost:8080');
 
-/*
+/* operator ...spread
 function testFn(...rest) {
     console.log(rest);
 }

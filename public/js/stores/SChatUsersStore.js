@@ -4,7 +4,7 @@
 
 let SChatDispatcher = require('../dispatcher/SChatDispatcher'),
     SChatConstants = require('../constants/SChatConstants'),
-    Emitter = require('./emiter');
+    Emitter = require('../lib/emiter');
 
 const CHANGE_EVENT = 'change';
 let _users = [];
