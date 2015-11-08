@@ -1,6 +1,7 @@
 var http = require('http');
 var static = require('node-static');
 var fileServer = new static.Server('./public', { cache: 0 });
+var Msg = require('./public/js/chat/Message');
 
 var WebSocket = require('faye-websocket');
 
@@ -23,7 +24,23 @@ server.on('upgrade', function(request, socket, body) {
 
     ws.on('message', function(event) {
       //console.log(JSON.parse(event.data));
-      ws.send(event.data);
+      try {
+        var msg = JSON.parse(event.data);
+      } catch (e) {
+        console.log('Parsing error: ',e);
+      }
+
+      msg = msg ? msg : {};
+      msg.type = msg.type ? msg.type : 'unknown';
+      switch (msg.type) {
+        case Msg.getMsgTypes().AUTH:
+          msg.status = 'success';
+            ws.send(JSON.stringify(msg));
+          break;
+        default:
+              //unknown
+      }
+      //ws.send(event.data);
     });
 
     ws.on('close', function(event) {

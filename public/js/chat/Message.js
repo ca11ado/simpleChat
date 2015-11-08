@@ -1,8 +1,9 @@
 /**
  * Created by tos on 08.11.2015.
  */
+'use strict';
 
-let keyMirror = require('../lib/MyUtils').keyMirror
+let keyMirror = require('../lib/MyUtils').keyMirror;
 
 const MSG_TYPES = keyMirror({
     AUTH: null,

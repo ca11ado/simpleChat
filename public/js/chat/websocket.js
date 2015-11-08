@@ -58,9 +58,10 @@ let WS = {
   },
 
   sendMsg: function(msg) {
+    msg = JSON.stringify(msg);
     if (_socket) _socket.send(msg);
     else new Error('Socket does not exist yet');
-    console.log('Send message %o', JSON.stringify(msg));
+    //console.log('Send message %o', JSON.stringify(msg));
   },
 
   sendTestMsg: function(txt) {
