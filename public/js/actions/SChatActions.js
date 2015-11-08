@@ -6,10 +6,15 @@ let SChatDispatcher = require('../dispatcher/SChatDispatcher'),
     SChatConstants = require('../constants/SChatConstants');
 
 module.exports = {
-  updateListOfUsers: function(newList){
+    updateListOfUsers: function(newList){
       SChatDispatcher.dispatch({
-          actionType: SChatConstants.UPDATE_USERS_LIST,
+          actionType: SChatConstants.ACTIVATE_LOGIN_FORM,
           list: newList
       });
-  }
+    },
+    connectedToWebSocket: function(){
+        SChatDispatcher.dispatch({
+            actionType: SChatConstants.CONN_OPEN
+        });
+}
 };

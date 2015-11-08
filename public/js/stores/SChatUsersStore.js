@@ -22,9 +22,8 @@ let SChatUsersStore = Object.assign({}, Emitter.prototype, {
 SChatDispatcher.register(function(action){
     console.log('DISPATCHER registered in SChatUsersStore');
     switch (action.actionType) {
-        case SChatConstants.UPDATE_USERS_LIST:
-            updateUsers(action.list);
-            SChatUsersStore.emit(CHANGE_EVENT);
+        case SChatConstants.ACTIVATE_LOGIN_FORM:
+            //SChatUsersStore.emit(CHANGE_EVENT);
             break;
         default:
             //nothing
