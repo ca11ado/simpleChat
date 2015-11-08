@@ -13,7 +13,6 @@ SChatUsersStore.addChangeListener(function () {
 });
 
 SChatSectionsStore.addChangeListener(function () {
-    //console.log('f:SChatComponent > Activate section: ', SChatSectionsStore.getActiveSection());
     ChatInterface.showSection(SChatSectionsStore.getActiveSection());
 });
 

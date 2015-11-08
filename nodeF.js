@@ -1,6 +1,8 @@
+'use strict';
+
 var http = require('http');
-var static = require('node-static');
-var fileServer = new static.Server('./public', { cache: 0 });
+var stat = require('node-static');
+var fileServer = new stat.Server('./public', { cache: 0 });
 var Msg = require('./public/js/chat/Message');
 
 var WebSocket = require('faye-websocket');

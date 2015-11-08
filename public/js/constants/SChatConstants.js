@@ -5,9 +5,11 @@
 let keyMirror = require('../lib/MyUtils').keyMirror;
 
 let SChatConstants = keyMirror({
+    CONNECT_TO_WS: null,
     CONN_OPEN: null,
     AUTHORIZED: null,
-    UPDATE_USERS_LIST: null
+    UPDATE_USERS_LIST: null,
+    WS_MESSAGE_SEND: null
 });
 
 module.exports = SChatConstants;
