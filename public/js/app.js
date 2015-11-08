@@ -4,6 +4,9 @@
 
 let chat = require('./chat/chat');
 let ws = require('./chat/websocket');
+let dispatcher = require('./dispatcher/SChatDispatcher');
+let component = require('./components/SChatComponent'),
+    SChatUsersStore = require('./stores/SChatUsersStore');
 
 console.log('start app');
 
