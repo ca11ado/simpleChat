@@ -16,5 +16,11 @@ module.exports = {
         SChatDispatcher.dispatch({
             actionType: SChatConstants.CONN_OPEN
         });
-}
+    },
+    authorized: function(userName) {
+        SChatDispatcher.dispatch({
+            actionType: SChatConstants.AUTHORIZED,
+            userName: userName
+        })
+    }
 };

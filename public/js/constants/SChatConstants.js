@@ -11,6 +11,7 @@ function keyMirror(obj) {
 
 let SChatConstants = keyMirror({
     CONN_OPEN: null,
+    AUTHORIZED: null,
     UPDATE_USERS_LIST: null
 });
 

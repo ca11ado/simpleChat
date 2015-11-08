@@ -30,13 +30,15 @@ let WS = {
     _socket = new WebSocket(url);
 
     _socket.onopen = function() {
-      //_socket.send('Hello world2');
       SChatActions.connectedToWebSocket();
+      setTimeout(function () {
+        _socket.send('New test user');
+      }, 2000);
     };
     _socket.onclose = function(event) { console.log('Код: ' + event.code + ' причина: ' + event.reason); };
     _socket.onmessage = function(event) {
-      //WS.emitMsg('myMsg', event.data);
       console.log("f:websocket > получены данные " + event.data);
+      SChatActions.authorized('Test');
     };
     _socket.onerror = function(error) { console.log("Ошибка " + error.message); };
 

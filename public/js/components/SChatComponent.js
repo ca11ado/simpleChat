@@ -2,6 +2,8 @@
  * Created by tos on 08.11.2015.
  */
 
+let ChatInterface = require('../chat/interface');
+
 let SChatActions = require('../actions/SChatActions'),
     SChatUsersStore = require('../stores/SChatUsersStore'),
     SChatSectionsStore = require('../stores/SChatSectionsStore');
@@ -11,8 +13,8 @@ SChatUsersStore.addChangeListener(function () {
 });
 
 SChatSectionsStore.addChangeListener(function () {
-    console.log('Component retrieve data from SectionsStore');
     console.log('f:SChatComponent > Activate section: ', SChatSectionsStore.getActiveSection());
+    ChatInterface.showSection(SChatSectionsStore.getActiveSection());
 });
 
 module.exports = setTimeout(function(){

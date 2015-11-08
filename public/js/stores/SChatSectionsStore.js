@@ -42,6 +42,10 @@ SChatDispatcher.register(function(action){
             activateSection(SECTION_LOGIN);
             SChatSectionsStore.emit(CHANGE_EVENT);
             break;
+        case SChatConstants.AUTHORIZED:
+            activateSection(SECTION_CHAT);
+            SChatSectionsStore.emit(CHANGE_EVENT);
+            break;
         default:
         //nothing
     }
