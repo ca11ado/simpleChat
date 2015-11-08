@@ -33,8 +33,8 @@ let WS = {
     };
     _socket.onclose = function(event) { console.log('Код: ' + event.code + ' причина: ' + event.reason); };
     _socket.onmessage = function(event) {
-      WS.emitMsg('myMsg', event.data);
-      console.log("Получены данные" + event.data);
+      //WS.emitMsg('myMsg', event.data);
+      console.log("Получены данные " + event.data);
     };
     _socket.onerror = function(error) { console.log("Ошибка " + error.message); };
 

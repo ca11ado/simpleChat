@@ -3,26 +3,28 @@
  */
 
 let SChatDispatcher = require('../dispatcher/SChatDispatcher'),
-    SChatConstants = require('../constants/SChatConstants');
+    SChatConstants = require('../constants/SChatConstants'),
+    Emitter = require('./emiter');
 
+const CHANGE_EVENT = 'change';
 let _users = [];
 
 function updateUsers(newUsers) {
     _users = newUsers;
 }
 
-let SChatUsersStore = {
-    addChangeListener: function() {
-
+let SChatUsersStore = Object.assign({}, Emitter.prototype, {
+    addChangeListener: function(callback) {
+        this.addMyListener(CHANGE_EVENT, callback);
     }
-};
+});
 
 SChatDispatcher.register(function(action){
     console.log('DISPATCHER registered in SChatUsersStore');
     switch (action.actionType) {
         case SChatConstants.UPDATE_USERS_LIST:
             updateUsers(action.list);
-            // emit change event
+            SChatUsersStore.emit(CHANGE_EVENT);
             break;
         default:
             //nothing
