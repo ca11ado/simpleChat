@@ -10,6 +10,7 @@ const MSG_TYPES = keyMirror({
     HISTORY: null,
     MESSAGE: null,
     USERLIST: null,
+    INFO: null,
     SYSTEM: null
 });
 
@@ -65,6 +66,15 @@ function MsgSystem (data) {
 MsgSystem.prototype = Object.create(Msg.prototype);
 MsgSystem.prototype.constructor = MsgSystem;
 
+function MsgInfo (data) {
+    if (!data.text) new Error('data.text is indefined');
+    this.type = MSG_TYPES.INFO;
+    this.data = {text: data.text};
+}
+MsgInfo.prototype = Object.create(Msg.prototype);
+MsgInfo.prototype.constructor = MsgInfo;
+
+
 module.exports = {
     createAuth: function(data) {
       return new MsgAuth(data);
@@ -77,6 +87,9 @@ module.exports = {
     },
     createSysMsg: function(data){
       return new MsgSystem(data);
+    },
+    createInfo: function(data){
+      return new MsgInfo(data);
     },
     getMsgTypes: function() {
       return MSG_TYPES;

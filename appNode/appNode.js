@@ -9,6 +9,7 @@ var Channel = require('./channel');
 var WebSocket = require('faye-websocket');
 
 let chn = new Channel('def');
+let check = require('./check');
 
 var server = http.createServer(function (request, response) {
   request.addListener('end', function () {
@@ -39,6 +40,12 @@ server.on('upgrade', function(request, socket, body) {
       switch (msg.type) {
         case Msg.getMsgTypes().AUTH:
           //todo проверку имения пользовтеля (RegExp.test \w{1,10})
+          var userTryName = msg.data.userName;
+          var restrict = check.userName(userTryName);
+            if (restrict.error) {
+              ws.send(JSON.stringify(Msg.createInfo({text:restrict.errText})));
+              break;
+            }
           if (chn.isRegistered(msg.data.userName)) {
             msg.data.status = 'exist';
           } else { //todo отослать всем пользователям сообщение о его появлении
