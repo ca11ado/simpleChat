@@ -34,8 +34,13 @@ server.on('upgrade', function(request, socket, body) {
       msg.type = msg.type ? msg.type : 'unknown';
       switch (msg.type) {
         case Msg.getMsgTypes().AUTH:
-          msg.status = 'success';
-            ws.send(JSON.stringify(msg));
+          if (checkRegistered(msg.data.userName)) {
+            msg.data.status = 'exist';
+          } else {
+            msg.data.status = 'success';
+            addRegistered(msg.data.userName);
+          }
+          ws.send(JSON.stringify(msg));
           break;
         default:
               //unknown
@@ -49,3 +54,21 @@ server.on('upgrade', function(request, socket, body) {
     });
   }
 });
+
+let _registeredUsers = ['test','test2'];
+function checkRegistered(userName) {
+  let result = false;
+  _registeredUsers.map(function (v) {
+    if (v === userName) result = true;
+  });
+  return result;
+}
+function addRegistered(userName) {
+  _registeredUsers.push(userName);
+  console.log(_registeredUsers);
+}
+function delRegistered(userName) {
+  _registeredUsers.map(function (v) {
+    if (v === userName) return '';
+  });
+}

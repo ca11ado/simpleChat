@@ -16,6 +16,9 @@ button.onclick = function(e){
 
 
 let Interface = {
+  showInfoMsg: function(msg) {
+    document.getElementById('info').textContent = msg;
+  },
   showSection: function(section) {
     let sections = document.getElementsByClassName('mainSection'),
       activateSection = section ? document.getElementById(section) : false;

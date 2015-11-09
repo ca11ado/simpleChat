@@ -12,23 +12,18 @@ module.exports = {
         url: url
       });
     },
-    updateListOfUsers: function(newList){
-      SChatDispatcher.dispatch({
-          actionType: SChatConstants.ACTIVATE_LOGIN_FORM,
-          list: newList
-      });
-    },
     connectedToWebSocket: function(){
         console.log('f:SChatActions > WebSocket connected');
         SChatDispatcher.dispatch({
             actionType: SChatConstants.CONN_OPEN
         });
     },
-    authorized: function(userName) {
+    authorized: function(userName,status) {
         console.log('f:SChatActions > user %o authorized', userName);
         SChatDispatcher.dispatch({
             actionType: SChatConstants.AUTHORIZED,
-            userName: userName
+            userName: userName,
+            status: status
         })
     },
     sendMessage: function(msg) {

@@ -39,6 +39,12 @@ let SChatMsgStore = Object.assign({}, Emitter.prototype, {
 
 SChatDispatcher.register(function(action){
   switch (action.actionType) {
+    case SChatConstants.AUTHORIZED:
+      if (action.status !== 'success') {
+
+        SChatMsgStore.emit(CHANGE_EVENT);
+      }
+      break;
     case SChatConstants.CONNECT_TO_WS:
       updateUrl(action.url);
       SChatMsgStore.emit(CHANGE_EVENT);

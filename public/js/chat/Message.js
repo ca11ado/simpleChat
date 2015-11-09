@@ -13,7 +13,7 @@ const MSG_TYPES = keyMirror({
 });
 
 function Msg(type,data) {
-    if (!type || !data) new Error('Не задан один из параметров сообщения');
+    if (!type || !data) new Error('РќРµ Р·Р°РґР°РЅ РѕРґРёРЅ РёР· РїР°СЂР°РјРµС‚СЂРѕРІ СЃРѕРѕР±С‰РµРЅРёСЏ');
     this.type = type;
     this.data = data;
 }

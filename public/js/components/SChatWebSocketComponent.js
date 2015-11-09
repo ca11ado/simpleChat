@@ -29,10 +29,16 @@ let WS = {
     };
 
     _socket.onmessage = function(event) {
+      let msg;
+      try {
+        msg = JSON.parse(event.data);
+      } catch (e) {
+        console.log('Parsing error ', e);
+      }
       console.log("f:SChatWebSocketComponent > получены данные %o", event.data);
-      switch (event.data.type) {
+      switch (msg.type) {
         case MsgTypes.AUTH:
-          SChatActions.authorized(event.data.userName);
+          SChatActions.authorized(msg.data.userName,msg.data.status);
           break;
         default:
         //todo don't know this type

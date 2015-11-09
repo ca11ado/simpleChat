@@ -28,7 +28,7 @@ SChatDispatcher.register(function(action){
     //console.log('DISPATCHER registered in SChatUsersStore');
     switch (action.actionType) {
         case SChatConstants.AUTHORIZED:
-            setUserName(action.userName);
+            if (action.status === 'success') setUserName(action.userName);
             SChatUsersStore.emit(CHANGE_EVENT);
             break;
         default:
