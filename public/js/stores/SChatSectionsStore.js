@@ -63,10 +63,8 @@ SChatDispatcher.register(function(action){
     case SChatConstants.AUTHORIZED:
       if (action.status === 'success') {
         activateSection(SECTION_CHAT);
-      } else if (action.status === 'exist') {
-        updateInfoText(INFO_EXIST);
+        SChatSectionsStore.emit(CHANGE_EVENT);
       }
-      SChatSectionsStore.emit(CHANGE_EVENT);
       break;
     default:
   }

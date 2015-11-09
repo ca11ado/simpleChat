@@ -40,11 +40,12 @@ let SChatUsersStore = Object.assign({}, Emitter.prototype, {
 });
 
 SChatDispatcher.register(function(action){
-    //console.log('DISPATCHER registered in SChatUsersStore');
     switch (action.actionType) {
       case SChatConstants.AUTHORIZED:
-        if (action.status === 'success') setUserName(action.userName);
-        SChatUsersStore.emit(CHANGE_EVENT);
+        if (action.status === 'success') {
+            setUserName(action.userName);
+            SChatUsersStore.emit(CHANGE_EVENT);
+        }
         break;
       case SChatConstants.UPDATE_USERS_LIST:
         updateRegisteredUsers(action.users);
