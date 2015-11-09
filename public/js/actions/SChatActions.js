@@ -39,5 +39,12 @@ module.exports = {
       actionType: SChatConstants.WS_MESSAGE_SEND,
       msg: msg
     })
+  },
+  infoMessage: function(msg) {
+    console.log('f:SChatActions > info message %o', msg);
+    SChatDispatcher.dispatch({
+      actionType: SChatConstants.WS_INFO_MSG,
+      msg: msg
+    })
   }
 };

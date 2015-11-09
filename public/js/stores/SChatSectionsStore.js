@@ -52,6 +52,10 @@ let SChatSectionsStore = Object.assign({}, Emitter.prototype, {
 
 SChatDispatcher.register(function(action){
   switch (action.actionType) {
+    case SChatConstants.WS_INFO_MSG:
+      updateInfoText(action.msg);
+      SChatSectionsStore.emit(CHANGE_EVENT);
+      break;
     case SChatConstants.CONN_OPEN:
       activateSection(SECTION_LOGIN);
       SChatSectionsStore.emit(CHANGE_EVENT);

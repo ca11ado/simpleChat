@@ -43,6 +43,9 @@ let WS = {
         case MsgTypes.USERLIST:
           SChatActions.updateUserList(msg.data.users);
           break;
+        case MsgTypes.INFO:
+          SChatActions.infoMessage(msg.data.text);
+          break;
         default:
         //todo don't know this type
       }

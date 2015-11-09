@@ -47,16 +47,15 @@ server.on('upgrade', function(request, socket, body) {
               break;
             }
           if (chn.isRegistered(msg.data.userName)) {
-            msg.data.status = 'exist';
-          } else { //todo отослать всем пользователям сообщение о его появлении
-            _name = msg.data.userName;
-            chn.subscribe(ws,_name);
-            msg.data.status = 'success';
-            //ws.send(JSON.stringify(Msg.createUserList({users:chn.getUsers()}))); //todo в отдельный компонент рассылающий всем зарегестрированным список пользователей
-            chn.sendSystemMsg('Пользователь ' + _name + ' зашел в чат');
-            chn.broadcastUserList();
+            ws.send(JSON.stringify(Msg.createInfo({text: 'Имя занято'})));
+            break;
           }
-          ws.send(JSON.stringify(msg));
+          _name = msg.data.userName;
+          chn.subscribe(ws,_name);
+          ws.send(JSON.stringify(Msg.createAuth({userName:_name,status:'success'})));
+          //ws.send(JSON.stringify(Msg.createUserList({users:chn.getUsers()}))); //todo в отдельный компонент рассылающий всем зарегестрированным список пользователей
+          chn.sendSystemMsg('Пользователь ' + _name + ' зашел в чат');
+          chn.broadcastUserList();
           break;
         case Msg.getMsgTypes().MESSAGE:
           //todo добавить имя пользователя, проверить на вредный текст, отправить всем пользователям
