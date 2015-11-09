@@ -13,9 +13,11 @@
 }
 #userList{
     width: 100px;
+    overflow-y: scroll;
 }
 #history {
     height: 220px;
+    overflow-y: scroll;
 }
 #msgText {
     width: 204px;
