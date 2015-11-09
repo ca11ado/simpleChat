@@ -45,6 +45,7 @@ server.on('upgrade', function(request, socket, body) {
             _name = msg.data.userName;
           }
           ws.send(JSON.stringify(msg));
+          ws.send(JSON.stringify(Msg.createUserList({users:_registeredUsers}))); //todo в отдельный компонент рассылающий всем зарегестрированным список пользователей
           break;
         default:
               //unknown

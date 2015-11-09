@@ -9,6 +9,7 @@ const MSG_TYPES = keyMirror({
     AUTH: null,
     HISTORY: null,
     MESSAGE: null,
+    USERLIST: null,
     SYSTEM: null
 });
 
@@ -47,14 +48,25 @@ function MsgMessage (data) {
 MsgMessage.prototype = Object.create(Msg.prototype);
 MsgMessage.prototype.constructor = MsgMessage;
 
+function MsgUserList (data) {
+  if (!data.users) new Error('Не задан список пользователей');
+  this.type = MSG_TYPES.USERLIST;
+  this.data = data;
+}
+MsgUserList.prototype = Object.create(Msg.prototype);
+MsgUserList.prototype.constructor = MsgUserList;
+
 module.exports = {
     createAuth: function(data) {
-        return new MsgAuth(data);
+      return new MsgAuth(data);
     },
     createMessage: function(data) {
-        return new MsgMessage(data);
+      return new MsgMessage(data);
+    },
+    createUserList: function(data) {
+      return new MsgUserList(data);
     },
     getMsgTypes: function() {
-        return MSG_TYPES;
+      return MSG_TYPES;
     }
 };
