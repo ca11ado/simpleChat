@@ -30,6 +30,12 @@ let Interface = {
       sections[i].style.display = 'none';
     }
     if (activateSection) activateSection.style.display = 'block';
+  },
+  updateRegisteredUsers: function(users) {
+    console.log('updateRegisteredUsers %o', users);
+    document.getElementById('userList').innerHTML = users.reduce(function(prev,current){
+      return prev+ '<span>'+current+ '</span></br>';
+    },'');
   }
 };
 

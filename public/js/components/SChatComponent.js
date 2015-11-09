@@ -11,6 +11,7 @@ let SChatActions = require('../actions/SChatActions'),
 
 SChatUsersStore.addChangeListener(function () {
   ChatInterface.showUserName(SChatUsersStore.getUserName());
+  ChatInterface.updateRegisteredUsers(SChatUsersStore.getRegisteredUsers());
 });
 
 SChatSectionsStore.addChangeListener(function () {

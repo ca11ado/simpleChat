@@ -40,6 +40,9 @@ let WS = {
         case MsgTypes.AUTH:
           SChatActions.authorized(msg.data.userName,msg.data.status);
           break;
+        case MsgTypes.USERLIST:
+          SChatActions.updateUserList(msg.data.users);
+          break;
         default:
         //todo don't know this type
       }

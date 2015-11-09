@@ -5,3 +5,13 @@
 .mainSection {
     display:none;
 }
+.chatBlock {
+    height: 300px;
+    float:left;
+}
+#userList{
+    width: 100px;
+}
+#history {
+    height: 200px;
+}
