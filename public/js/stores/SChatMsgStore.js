@@ -8,11 +8,16 @@ let SChatDispatcher = require('../dispatcher/SChatDispatcher'),
 
 const CHANGE_EVENT = 'change';
 
-let _message,
+let _sendingMessage,
+    _receivedMessage,
     _url;
 
-function updateMsg(msg){
-  _message = msg;
+function updateSendedMsg(msg){
+  _sendingMessage = msg;
+}
+
+function updateReceivedMsg(msgObj) {
+  _receivedMessage = msgObj;
 }
 
 function updateUrl(url) {
@@ -25,10 +30,16 @@ let SChatMsgStore = Object.assign({}, Emitter.prototype, {
     this.addMyListener(CHANGE_EVENT, callback);
   },
 
-  getMessage: function() {
-    let m = _message;
-    _message = '';
+  getSendingMessage: function() {
+    let m = _sendingMessage;
+    _sendingMessage = '';
     return m;
+  },
+
+  getReceivedMessage: function() {
+    let mObj = _receivedMessage;
+    _receivedMessage = '';
+    return mObj;
   },
 
   getUrl: function(){
@@ -43,11 +54,12 @@ SChatDispatcher.register(function(action){
       updateUrl(action.url);
       SChatMsgStore.emit(CHANGE_EVENT);
       break;
-    case SChatConstants.CONN_OPEN:
-
-      break;
     case SChatConstants.WS_MESSAGE_SEND:
-      updateMsg(action.msg);
+      updateSendedMsg(action.msg);
+      SChatMsgStore.emit(CHANGE_EVENT);
+      break;
+    case SChatConstants.WS_MESSAGE_RECEIVE:
+      updateReceivedMsg(action.msgObj);
       SChatMsgStore.emit(CHANGE_EVENT);
       break;
     default:

@@ -46,6 +46,9 @@ let WS = {
         case MsgTypes.INFO:
           SChatActions.infoMessage(msg.data.text);
           break;
+        case MsgTypes.MESSAGE:
+          SChatActions.receiveMessage(msg.data);
+          break;
         default:
         //todo don't know this type
       }
@@ -76,7 +79,7 @@ SChatMsgStore.addChangeListener(function () {
     WS.connect(SChatMsgStore.getUrl());
   }
 
-  let wsMsg = SChatMsgStore.getMessage();
+  let wsMsg = SChatMsgStore.getSendingMessage();
   if (wsMsg) WS.sendMsg(wsMsg);
 });
 

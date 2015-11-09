@@ -20,5 +20,6 @@ SChatSectionsStore.addChangeListener(function () {
 });
 
 SChatMsgStore.addChangeListener(function () {
-
+  let msgObj = SChatMsgStore.getReceivedMessage();
+  if (msgObj) ChatInterface.addReceivedMsg(msgObj);
 });

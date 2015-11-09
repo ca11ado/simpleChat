@@ -10,6 +10,7 @@ let SChatConstants = keyMirror({
     AUTHORIZED: null,
     UPDATE_USERS_LIST: null,
     WS_MESSAGE_SEND: null,
+    WS_MESSAGE_RECEIVE: null,
     WS_INFO_MSG: null
 });
 

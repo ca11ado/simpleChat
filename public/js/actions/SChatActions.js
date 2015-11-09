@@ -40,8 +40,15 @@ module.exports = {
       msg: msg
     })
   },
+  receiveMessage: function(msgObj){
+    console.log('f:SChatActions > receive message %o', msgObj);
+    SChatDispatcher.dispatch({
+      actionType: SChatConstants.WS_MESSAGE_RECEIVE,
+      msgObj: msgObj
+    })
+  },
   infoMessage: function(msg) {
-    console.log('f:SChatActions > info message %o', msg);
+    console.log('f:SChatActions > receive info message %o', msg);
     SChatDispatcher.dispatch({
       actionType: SChatConstants.WS_INFO_MSG,
       msg: msg
