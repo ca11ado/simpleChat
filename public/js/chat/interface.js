@@ -3,15 +3,15 @@
  */
 
 
-let WS = require('./websocket'),
-    Msg = require('./Message');
+let Msg = require('./Message'),
+    SChatActions = require('../actions/SChatActions');
 
 /* Обработчики интерфейса */
 let button = document.getElementById('button');
 
 button.onclick = function(e){
   let input = document.getElementById('login').querySelector('input');
-  if (input.value) WS.sendMsg(Msg.createAuth({userName:input.value}));
+  if (input.value) SChatActions.sendMessage(Msg.createAuth({userName: input.value}));
 };
 
 

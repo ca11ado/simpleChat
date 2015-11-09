@@ -8,7 +8,16 @@ let SChatDispatcher = require('../dispatcher/SChatDispatcher'),
 
 const CHANGE_EVENT = 'change';
 
-let _message;
+let _message,
+    _url;
+
+function updateMsg(msg){
+  _message = msg;
+}
+
+function updateUrl(url) {
+  _url = url;
+}
 
 let SChatMsgStore = Object.assign({}, Emitter.prototype, {
 
@@ -20,17 +29,25 @@ let SChatMsgStore = Object.assign({}, Emitter.prototype, {
     let m = _message;
     _message = '';
     return m;
+  },
+
+  getUrl: function(){
+    return _url;
   }
 
 });
 
 SChatDispatcher.register(function(action){
   switch (action.actionType) {
+    case SChatConstants.CONNECT_TO_WS:
+      updateUrl(action.url);
+      SChatMsgStore.emit(CHANGE_EVENT);
+      break;
     case SChatConstants.CONN_OPEN:
 
       break;
     case SChatConstants.WS_MESSAGE_SEND:
-
+      updateMsg(action.msg);
       SChatMsgStore.emit(CHANGE_EVENT);
       break;
     default:

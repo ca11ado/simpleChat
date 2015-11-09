@@ -25,13 +25,11 @@ server.on('upgrade', function(request, socket, body) {
     var ws = new WebSocket(request, socket, body);
 
     ws.on('message', function(event) {
-      //console.log(JSON.parse(event.data));
       try {
         var msg = JSON.parse(event.data);
       } catch (e) {
         console.log('Parsing error: ',e);
       }
-
       msg = msg ? msg : {};
       msg.type = msg.type ? msg.type : 'unknown';
       switch (msg.type) {

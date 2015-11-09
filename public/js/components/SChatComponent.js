@@ -15,7 +15,3 @@ SChatUsersStore.addChangeListener(function () {
 SChatSectionsStore.addChangeListener(function () {
     ChatInterface.showSection(SChatSectionsStore.getActiveSection());
 });
-
-module.exports = setTimeout(function(){
-    SChatActions.updateListOfUsers(['user1','user2']);
-},2000);

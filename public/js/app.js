@@ -4,12 +4,13 @@
 
 let SChatComponent = require('./components/SChatComponent'),
     SChatUsersStore = require('./stores/SChatUsersStore'),
+    SChatMsgStore = require('./stores/SChatMsgStore'),
     SChatWebSocketComponent = require('./components/SChatWebSocketComponent'),
     SChatActions = require('./actions/SChatActions');
 
 console.log('starting app');
 
-SChatActions.connectedToWebSocket('ws://localhost:8080');
+SChatActions.connectToWS('ws://localhost:8080');
 
 /* operator ...spread
 function testFn(...rest) {

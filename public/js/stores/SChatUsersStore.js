@@ -7,10 +7,15 @@ let SChatDispatcher = require('../dispatcher/SChatDispatcher'),
     Emitter = require('../lib/emiter');
 
 const CHANGE_EVENT = 'change';
-let _users = [];
+let _users = [],
+    _userName;
 
 function updateUsers(newUsers) {
     _users = newUsers;
+}
+
+function setUserName(name) {
+  _userName = name;
 }
 
 let SChatUsersStore = Object.assign({}, Emitter.prototype, {
@@ -22,8 +27,9 @@ let SChatUsersStore = Object.assign({}, Emitter.prototype, {
 SChatDispatcher.register(function(action){
     //console.log('DISPATCHER registered in SChatUsersStore');
     switch (action.actionType) {
-        case SChatConstants.ACTIVATE_LOGIN_FORM:
-            //SChatUsersStore.emit(CHANGE_EVENT);
+        case SChatConstants.AUTHORIZED:
+            setUserName(action.userName);
+            SChatUsersStore.emit(CHANGE_EVENT);
             break;
         default:
             //nothing

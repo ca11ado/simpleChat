@@ -53,13 +53,17 @@ let WS = {
     else new Error('Socket does not exist yet');
   },
 
-  sendTestMsg: function(txt) {
-    _socket.send(txt);
+  sendTestMsg: function(msg) {
+    _socket.send(msg);
   }
 
 };
 
 SChatMsgStore.addChangeListener(function () {
+  if (!_socket) {
+    WS.connect(SChatMsgStore.getUrl());
+  }
+
   let wsMsg = SChatMsgStore.getMessage();
   if (wsMsg) WS.sendMsg(wsMsg);
 });
