@@ -39,7 +39,6 @@ server.on('upgrade', function(request, socket, body) {
 
       switch (msg.type) {
         case Msg.getMsgTypes().AUTH:
-          //todo проверку имения пользовтеля (RegExp.test \w{1,10})
           var userTryName = msg.data.userName;
           var restrict = check.userName(userTryName);
             if (restrict.error) {
@@ -53,7 +52,6 @@ server.on('upgrade', function(request, socket, body) {
           _name = msg.data.userName;
           chn.subscribe(ws,_name);
           ws.send(JSON.stringify(Msg.createAuth({userName:_name,status:'success'})));
-          //ws.send(JSON.stringify(Msg.createUserList({users:chn.getUsers()}))); //todo в отдельный компонент рассылающий всем зарегестрированным список пользователей
           chn.sendSystemMsg('Пользователь ' + _name + ' зашел в чат');
           chn.broadcastUserList();
           break;
