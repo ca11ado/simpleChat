@@ -60,8 +60,8 @@ server.on('upgrade', function(request, socket, body) {
 
     ws.on('close', function(event) {
       console.log('close', event.code, event.reason);
-      ws = null;
       chn.unSubscribe(ws, _name);
+      ws = null;
     });
   }
 });

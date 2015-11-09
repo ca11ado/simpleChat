@@ -17,7 +17,10 @@ Channel.prototype.subscribe = function(client, userName){
 Channel.prototype.unSubscribe = function(client, userName){
     if (!client || !userName) new Error('Undefined parametr in Channel.unSubscribe');
     let index = this._clients.indexOf(client);
-    if (index > -1) this._clients.splice(index,1);
+    if (index > -1) {
+        this._clients.splice(index,1);
+        this._users.splice(index,1);
+    }
 };
 Channel.prototype.broadcast = function (msg) {
   this._clients.map(function (v) {
