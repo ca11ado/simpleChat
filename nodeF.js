@@ -21,6 +21,8 @@ var server = http.createServer(function (request, response) {
 }).listen(8080);
 
 server.on('upgrade', function(request, socket, body) {
+  let _name;
+
   if (WebSocket.isWebSocket(request)) {
     var ws = new WebSocket(request, socket, body);
 
@@ -39,23 +41,24 @@ server.on('upgrade', function(request, socket, body) {
           } else {
             msg.data.status = 'success';
             addRegistered(msg.data.userName);
+            _name = msg.data.userName;
           }
           ws.send(JSON.stringify(msg));
           break;
         default:
               //unknown
       }
-      //ws.send(event.data);
     });
 
     ws.on('close', function(event) {
       console.log('close', event.code, event.reason);
       ws = null;
+      delRegistered(_name);
     });
   }
 });
 
-let _registeredUsers = ['test','test2'];
+let _registeredUsers = ['admin','test'];
 function checkRegistered(userName) {
   let result = false;
   _registeredUsers.map(function (v) {
@@ -68,7 +71,10 @@ function addRegistered(userName) {
   console.log(_registeredUsers);
 }
 function delRegistered(userName) {
-  _registeredUsers.map(function (v) {
+  console.log(userName);
+  _registeredUsers = _registeredUsers.map(function (v) {
     if (v === userName) return '';
+    else return v;
   });
+  console.log(_registeredUsers);
 }
