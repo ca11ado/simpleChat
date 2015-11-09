@@ -46,6 +46,7 @@ server.on('upgrade', function(request, socket, body) {
             chn.subscribe(ws,_name);
             msg.data.status = 'success';
             ws.send(JSON.stringify(Msg.createUserList({users:chn.getUsers()}))); //todo в отдельный компонент рассылающий всем зарегестрированным список пользователей
+            chn.sendSystemMsg('Пользователь ' + _name + ' зашел в чат');
           }
           ws.send(JSON.stringify(msg));
           break;

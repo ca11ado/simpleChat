@@ -2,6 +2,7 @@
  * Created by tos on 09.11.2015.
  */
 'use strict';
+let Message = require('../public/js/chat/Message');
 
 function Channel(name) {
     this.name = name;
@@ -20,7 +21,7 @@ Channel.prototype.unSubscribe = function(client, userName){
 };
 Channel.prototype.broadcast = function (msg) {
   this._clients.map(function (v) {
-      v.send(msg);
+      v.send(JSON.stringify(msg));
   });
 };
 Channel.prototype.getUsers = function(){
@@ -32,6 +33,10 @@ Channel.prototype.isRegistered = function(userName){
         if (v === userName) result = true;
     });
     return result;
+};
+Channel.prototype.sendSystemMsg = function (text) {
+    let msg = Message.createSysMsg({text:text});
+    this.broadcast(msg);
 };
 
 module.exports = Channel;
