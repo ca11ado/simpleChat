@@ -25,8 +25,10 @@ Msg.prototype.getData = function () {
 };
 
 function MsgAuth (data) {
-    this.type = MSG_TYPES.AUTH;
-    this.data = data;
+  if (!data.userName) new Error('Не задан параметр userName');
+
+  this.type = MSG_TYPES.AUTH;
+  this.data = {userName: data.userName, status: data.status || ''};
 }
 MsgAuth.prototype = Object.create(Msg.prototype);
 MsgAuth.prototype.constructor = MsgAuth;
