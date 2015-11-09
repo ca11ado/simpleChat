@@ -37,15 +37,19 @@ server.on('upgrade', function(request, socket, body) {
 
       switch (msg.type) {
         case Msg.getMsgTypes().AUTH:
+          //todo проверку имения пользовтеля (RegExp.test \w{1,10})
           if (checkRegistered(msg.data.userName)) {
             msg.data.status = 'exist';
-          } else {
+          } else { //todo отослать всем пользователям сообщение о его появлении
             msg.data.status = 'success';
             addRegistered(msg.data.userName);
             _name = msg.data.userName;
+            ws.send(JSON.stringify(Msg.createUserList({users:_registeredUsers}))); //todo в отдельный компонент рассылающий всем зарегестрированным список пользователей
           }
           ws.send(JSON.stringify(msg));
-          ws.send(JSON.stringify(Msg.createUserList({users:_registeredUsers}))); //todo � ��������� ��������� ����������� ���� ������������������ ������ �������������
+          break;
+        case Msg.getMsgTypes().MESSAGE:
+          //todo добавить имя пользователя, проверить на вредный текст, отправить всем пользователям
           break;
         default:
               //unknown
