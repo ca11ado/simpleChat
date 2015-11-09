@@ -45,8 +45,9 @@ server.on('upgrade', function(request, socket, body) {
             _name = msg.data.userName;
             chn.subscribe(ws,_name);
             msg.data.status = 'success';
-            ws.send(JSON.stringify(Msg.createUserList({users:chn.getUsers()}))); //todo в отдельный компонент рассылающий всем зарегестрированным список пользователей
+            //ws.send(JSON.stringify(Msg.createUserList({users:chn.getUsers()}))); //todo в отдельный компонент рассылающий всем зарегестрированным список пользователей
             chn.sendSystemMsg('Пользователь ' + _name + ' зашел в чат');
+            chn.broadcastUserList();
           }
           ws.send(JSON.stringify(msg));
           break;
@@ -62,6 +63,7 @@ server.on('upgrade', function(request, socket, body) {
       console.log('close', event.code, event.reason);
       chn.unSubscribe(ws, _name);
       ws = null;
+      chn.broadcastUserList();
     });
   }
 });

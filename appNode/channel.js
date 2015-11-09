@@ -15,7 +15,7 @@ Channel.prototype.subscribe = function(client, userName){
     this._users.push(userName);
 };
 Channel.prototype.unSubscribe = function(client, userName){
-    if (!client || !userName) new Error('Undefined parametr in Channel.unSubscribe');
+    if (!client || !userName) new Error('Undefined parameter in Channel.unSubscribe');
     let index = this._clients.indexOf(client);
     if (index > -1) {
         this._clients.splice(index,1);
@@ -40,6 +40,9 @@ Channel.prototype.isRegistered = function(userName){
 Channel.prototype.sendSystemMsg = function (text) {
     let msg = Message.createSysMsg({text:text});
     this.broadcast(msg);
+};
+Channel.prototype.broadcastUserList = function () {
+    this.broadcast(Message.createUserList({users:this._users}));
 };
 
 module.exports = Channel;
