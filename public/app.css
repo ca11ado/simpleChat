@@ -8,10 +8,18 @@
 .chatBlock {
     height: 300px;
     float:left;
+    border: 1px solid black;
+    padding: 0 4px;
 }
 #userList{
     width: 100px;
 }
 #history {
-    height: 200px;
+    height: 220px;
+}
+#msgText {
+    width: 204px;
+}
+#msgSend {
+    width: 210px;
 }

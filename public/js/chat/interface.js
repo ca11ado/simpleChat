@@ -32,9 +32,9 @@ let Interface = {
     if (activateSection) activateSection.style.display = 'block';
   },
   updateRegisteredUsers: function(users) {
-    console.log('updateRegisteredUsers %o', users);
     document.getElementById('userList').innerHTML = users.reduce(function(prev,current){
-      return prev+ '<span>'+current+ '</span></br>';
+      let newEl = current ? '<span>'+current+ '</span></br>' : '';
+      return prev+ newEl;
     },'');
   }
 };
