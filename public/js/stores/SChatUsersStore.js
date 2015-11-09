@@ -19,9 +19,14 @@ function setUserName(name) {
 }
 
 let SChatUsersStore = Object.assign({}, Emitter.prototype, {
-    addChangeListener: function(callback) {
-        this.addMyListener(CHANGE_EVENT, callback);
-    }
+
+  addChangeListener: function(callback) {
+      this.addMyListener(CHANGE_EVENT, callback);
+  },
+
+  getUserName: function() {
+    return _userName;
+  }
 });
 
 SChatDispatcher.register(function(action){

@@ -16,6 +16,9 @@ button.onclick = function(e){
 
 
 let Interface = {
+  showUserName: function(userName) {
+    document.getElementById('userName').textContent = userName;
+  },
   showInfoMsg: function(msg) {
     document.getElementById('info').textContent = msg;
   },

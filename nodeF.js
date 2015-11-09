@@ -34,6 +34,7 @@ server.on('upgrade', function(request, socket, body) {
       }
       msg = msg ? msg : {};
       msg.type = msg.type ? msg.type : 'unknown';
+
       switch (msg.type) {
         case Msg.getMsgTypes().AUTH:
           if (checkRegistered(msg.data.userName)) {

@@ -10,7 +10,7 @@ let SChatActions = require('../actions/SChatActions'),
     SChatMsgStore = require('../stores/SChatMsgStore');
 
 SChatUsersStore.addChangeListener(function () {
-    console.log('Component retrieve data from store');
+  ChatInterface.showUserName(SChatUsersStore.getUserName());
 });
 
 SChatSectionsStore.addChangeListener(function () {
