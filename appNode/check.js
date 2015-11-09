@@ -16,7 +16,7 @@ module.exports = {
 
   messageText: function(text) {
     let result = {error:false, errText:WRONG_TEXT_LENGTH};
-    result.error = !/[.\s]{2,500}$/.test(text);
+    result.error = !/(.|\s){2,500}$/.test(text);
     return result;
   }
 
