@@ -25,6 +25,11 @@ var server = http.createServer(function (request, response) {
 server.on('upgrade', function(request, socket, body) {
   let _name;
 
+  let _msg,
+      _msgTime,
+      _msgText,
+      _restrict;
+
   if (WebSocket.isWebSocket(request)) {
     var ws = new WebSocket(request, socket, body);
 
@@ -40,9 +45,9 @@ server.on('upgrade', function(request, socket, body) {
       switch (msg.type) {
         case Msg.getMsgTypes().AUTH:
           var userTryName = msg.data.userName;
-          var restrict = check.userName(userTryName);
-            if (restrict.error) {
-              ws.send(JSON.stringify(Msg.createInfo({text:restrict.errText})));
+          _restrict = check.userName(userTryName);
+            if (_restrict.error) {
+              ws.send(JSON.stringify(Msg.createInfo({text:_restrict.errText})));
               break;
             }
           if (chn.isRegistered(msg.data.userName)) {
@@ -56,7 +61,16 @@ server.on('upgrade', function(request, socket, body) {
           chn.broadcastUserList();
           break;
         case Msg.getMsgTypes().MESSAGE:
-          //todo добавить имя пользователя, проверить на вредный текст, отправить всем пользователям
+          _msgText = msg.data.text;
+          _msgTime = msg.data.time;
+          _restrict = check.messageText(_msgText);
+          if (_msgText && _msgTime && !_restrict.error) {
+            _msg = Msg.createMessage({userName:_name,text:_msgText,time:_msgTime});
+            chn.broadcast(_msg);
+          }
+          if (_restrict.error) {
+            ws.send(JSON.stringify(Msg.createInfo({text:_restrict.errText})));
+          }
           break;
         default:
               //unknown
