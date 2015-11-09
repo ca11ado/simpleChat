@@ -7,11 +7,15 @@ let Msg = require('./Message'),
     SChatActions = require('../actions/SChatActions');
 
 /* Обработчики интерфейса */
-let button = document.getElementById('button');
+let buttonReg = document.getElementById('button');
+let buttonSend = document.getElementById('msgSend');
 
-button.onclick = function(e){
+buttonReg.onclick = function(e){
   let input = document.getElementById('login').querySelector('input');
   if (input.value) SChatActions.sendMessage(Msg.createAuth({userName: input.value}));
+};
+buttonSend.onclick = function (e) {
+  sendMsg();
 };
 
 
@@ -38,5 +42,10 @@ let Interface = {
     },'');
   }
 };
+
+function sendMsg() {
+  let text = document.getElementById('msgText').value;
+  if (text) SChatActions.sendMessage(Msg.createMessage({text:text}));
+}
 
 module.exports = Interface;

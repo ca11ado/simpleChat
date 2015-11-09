@@ -43,7 +43,8 @@ MsgHistory.prototype.constructor = MsgHistory;
 
 function MsgMessage (data) {
     this.type = MSG_TYPES.MESSAGE;
-    this.data = data;
+    if (!data.text) new Error('Не задан текст сообщения');
+    this.data = {userName:data.userName || '',text:data.text,time:new Date().toString()};
 }
 MsgMessage.prototype = Object.create(Msg.prototype);
 MsgMessage.prototype.constructor = MsgMessage;
