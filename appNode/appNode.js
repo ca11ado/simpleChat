@@ -3,11 +3,12 @@
 var http = require('http');
 var stat = require('node-static');
 var fileServer = new stat.Server('./public', { cache: 0 });
-var Msg = require('./public/js/chat/Message');
+var Msg = require('../public/js/chat/Message');
+var Channel = require('./channel');
 
 var WebSocket = require('faye-websocket');
 
-
+let chn = new Channel('def');
 
 var server = http.createServer(function (request, response) {
   request.addListener('end', function () {
@@ -41,6 +42,7 @@ server.on('upgrade', function(request, socket, body) {
           if (checkRegistered(msg.data.userName)) {
             msg.data.status = 'exist';
           } else { //todo отослать всем пользователям сообщение о его появлении
+            chn.subscribe(ws);
             msg.data.status = 'success';
             addRegistered(msg.data.userName);
             _name = msg.data.userName;
@@ -60,6 +62,7 @@ server.on('upgrade', function(request, socket, body) {
       console.log('close', event.code, event.reason);
       ws = null;
       delRegistered(_name);
+      chn.unSubscribe(ws);
     });
   }
 });
@@ -74,13 +77,13 @@ function checkRegistered(userName) {
 }
 function addRegistered(userName) {
   _registeredUsers.push(userName);
-  console.log(_registeredUsers);
+  //console.log(_registeredUsers);
 }
 function delRegistered(userName) {
-  console.log(userName);
+  //console.log(userName);
   _registeredUsers = _registeredUsers.map(function (v) {
     if (v === userName) return '';
     else return v;
   });
-  console.log(_registeredUsers);
+  //console.log(_registeredUsers);
 }
