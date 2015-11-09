@@ -26,5 +26,12 @@ Channel.prototype.broadcast = function (msg) {
 Channel.prototype.getUsers = function(){
     return this._users;
 };
+Channel.prototype.isRegistered = function(userName){
+    let result = false;
+    this._users.map(function (v) {
+        if (v === userName) result = true;
+    });
+    return result;
+};
 
 module.exports = Channel;

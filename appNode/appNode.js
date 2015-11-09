@@ -39,14 +39,13 @@ server.on('upgrade', function(request, socket, body) {
       switch (msg.type) {
         case Msg.getMsgTypes().AUTH:
           //todo проверку имения пользовтеля (RegExp.test \w{1,10})
-          if (checkRegistered(msg.data.userName)) {
+          if (chn.isRegistered(msg.data.userName)) {
             msg.data.status = 'exist';
           } else { //todo отослать всем пользователям сообщение о его появлении
-            chn.subscribe(ws);
-            msg.data.status = 'success';
-            addRegistered(msg.data.userName);
             _name = msg.data.userName;
-            ws.send(JSON.stringify(Msg.createUserList({users:_registeredUsers}))); //todo в отдельный компонент рассылающий всем зарегестрированным список пользователей
+            chn.subscribe(ws,_name);
+            msg.data.status = 'success';
+            ws.send(JSON.stringify(Msg.createUserList({users:chn.getUsers()}))); //todo в отдельный компонент рассылающий всем зарегестрированным список пользователей
           }
           ws.send(JSON.stringify(msg));
           break;
@@ -61,8 +60,7 @@ server.on('upgrade', function(request, socket, body) {
     ws.on('close', function(event) {
       console.log('close', event.code, event.reason);
       ws = null;
-      delRegistered(_name);
-      chn.unSubscribe(ws);
+      chn.unSubscribe(ws, _name);
     });
   }
 });
