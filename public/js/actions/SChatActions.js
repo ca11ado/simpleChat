@@ -47,13 +47,6 @@ module.exports = {
       msgObj: msgObj
     })
   },
-  receiveSystemMessage: function(msgObj){
-    console.log('f:SChatActions > receive system message %o', msgObj);
-    SChatDispatcher.dispatch({
-      actionType: SChatConstants.WS_SYSMESSAGE_RECEIVE,
-      msgObj: msgObj
-    })
-  },
   infoMessage: function(msg) {
     console.log('f:SChatActions > receive info message %o', msg);
     SChatDispatcher.dispatch({

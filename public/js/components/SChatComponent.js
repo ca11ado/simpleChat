@@ -7,7 +7,8 @@ let ChatInterface = require('../chat/interface');
 let SChatActions = require('../actions/SChatActions'),
     SChatUsersStore = require('../stores/SChatUsersStore'),
     SChatSectionsStore = require('../stores/SChatSectionsStore'),
-    SChatMsgStore = require('../stores/SChatMsgStore');
+    SChatMsgStore = require('../stores/SChatMsgStore'),
+    SChatConstants = require('../constants/SChatConstants');
 
 SChatUsersStore.addChangeListener(function () {
   ChatInterface.showUserName(SChatUsersStore.getUserName());
@@ -21,5 +22,8 @@ SChatSectionsStore.addChangeListener(function () {
 
 SChatMsgStore.addChangeListener(function () {
   let msgObj = SChatMsgStore.getReceivedMessage();
-  if (msgObj) ChatInterface.addReceivedMsg(msgObj);
+  if (msgObj) {
+    ChatInterface.addReceivedMsg(msgObj);
+    ChatInterface.scrollChat(SChatConstants.SCROLL_BOTTOM);
+  }
 });

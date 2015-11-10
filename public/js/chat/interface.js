@@ -4,7 +4,8 @@
 
 
 let Msg = require('./Message'),
-    SChatActions = require('../actions/SChatActions');
+    SChatActions = require('../actions/SChatActions'),
+    SChatConstants = require('../constants/SChatConstants');
 
 
 /* Обработчики интерфейса */
@@ -14,6 +15,12 @@ let buttonSend = eL('msgSend');
 buttonReg.onclick = function(e){
   let input = eL('login').querySelector('input');
   if (input.value) SChatActions.sendMessage(Msg.createAuth({userName: input.value}));
+};
+
+eL('msgText').onkeydown = function (e) {
+  if (e.keyCode == 13) {
+    sendMsg();
+  }
 };
 buttonSend.onclick = function (e) {
   sendMsg();
@@ -48,29 +55,28 @@ let Interface = {
   },
 
   addReceivedMsg: function(msgObj) {
-    /*let msgEl = document.createElement('div');
-        msgEl.className = 'message';
-    let textEl = document.createElement('span'),
-        authorEl = document.createElement('span'),
-        timeEl = document.createElement('span');
-
-    textEl.textContent = msgObj.text;
-    authorEl.textContent = msgObj.userName;
-    timeEl.textContent = msgObj.time;
-
-    msgEl.appendChild(authorEl);
-    msgEl.appendChild(timeEl);
-    msgEl.appendChild(textEl);
-
-    eL('history').appendChild(msgEl);*/
     let element = messageElement(msgObj);
     eL('history').appendChild(element);
+  },
+
+  scrollChat: function(direction) {
+    let chatHistory = eL('history');
+    switch (direction) {
+      case SChatConstants.SCROLL_BOTTOM:
+        chatHistory.scrollTop = chatHistory.scrollHeight - chatHistory.clientHeight;
+        break;
+      case 'top':
+        break;
+      default:
+    }
   }
 };
 
 function sendMsg() {
-  let text = eL('msgText').value;
-  if (text) SChatActions.sendMessage(Msg.createMessage({text:text}));
+  let text = eL('msgText');
+  let history = eL('history');
+  if (text.value) SChatActions.sendMessage(Msg.createMessage({text:text.value}));
+  text.value = '';
 }
 
 function eL(id){
