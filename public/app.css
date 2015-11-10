@@ -11,20 +11,25 @@
     border: 1px solid black;
     padding: 0 4px;
 }
+#chat {
+    width: 550px;
+}
 #userList{
     width: 100px;
     overflow-y: scroll;
 }
 #history {
     width: 400px;
-    height: 220px;
+    height: 100%;
     overflow-y: scroll;
 }
 #msgText {
-    width: 204px;
+    width: 514px;
+    float:left;
 }
 #msgSend {
-    width: 210px;
+    width: 520px;
+    float:left;
 }
 
 /* message */
