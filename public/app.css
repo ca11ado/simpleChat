@@ -34,6 +34,6 @@
 
 /* message */
 .msgNameAndTime { padding: 0; margin: 0 0; }
-.msgUserName { color: orangered; margin-right: 20px; }
-.msgTime { color:orange; }
-.msgText { color: brown; }
+.msgUserName { color: orangered; }
+.msgTime { font: normal small-caps 12px/14px serif; color:orange; float:right;}
+.msgText { color: brown;  }
