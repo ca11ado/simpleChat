@@ -5,12 +5,14 @@
 
 const WRONG_NAME = 'Разрешены согласные символы и подчеркивание. Длина от 2х до 10 символов',
       WRONG_TEXT_LENGTH = 'Ограничение по длине сообщения 500 символов';
+const NAME_LENGTH = 15;
 
 module.exports = {
 
   userName: function(name){
     let result = {error:false, errText:WRONG_NAME};
-    result.error = !/^[А-Яа-я\w]{2,10}$/.test(name);
+    let re = new RegExp('^[А-Яа-я\\w]{2,'+NAME_LENGTH+'}$');
+    result.error = !re.test(name);
     return result;
   },
 

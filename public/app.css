@@ -15,20 +15,23 @@
     width: 550px;
 }
 #userList{
-    width: 100px;
+    width: 30%;
     overflow-y: scroll;
 }
+#userChat {
+    width: 65%;
+    float:right;
+}
 #history {
-    width: 400px;
     height: 100%;
     overflow-y: scroll;
 }
 #msgText {
-    width: 514px;
+    width: 99%;
     float:left;
 }
 #msgSend {
-    width: 520px;
+    width: 100%;
     float:left;
 }
 
