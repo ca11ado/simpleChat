@@ -2,7 +2,7 @@
 
 var http = require('http');
 var stat = require('node-static');
-var fileServer = new stat.Server('./public', { cache: 0 });
+var fileServer = new stat.Server('./public', { cache: 3600 });
 var Msg = require('../public/js/chat/Message');
 var Channel = require('./channel');
 
@@ -13,11 +13,8 @@ let check = require('./check');
 
 var server = http.createServer(function (request, response) {
   request.addListener('end', function () {
+    //console.log(request.url);
     fileServer.serve(request, response, function (e, res) {
-      /*if (e && (e.status === 404)) { // If the file wasn't found
-        console.log(e);
-        fileServer.serveFile('./public/not-found.html', 404, {}, request, response);
-      }*/
     });
   }).resume();
 }).listen(8080);
@@ -79,7 +76,7 @@ server.on('upgrade', function(request, socket, body) {
     });
 
     ws.on('close', function(event) {
-      console.log('close', event.code, event.reason);
+      //console.log('close', event.code, event.reason);
       chn.unSubscribe(ws, _name);
       ws = null;
       chn.sendSystemMsg('Пользователь ' + _name + ' вышел из чата');
@@ -87,24 +84,3 @@ server.on('upgrade', function(request, socket, body) {
     });
   }
 });
-
-let _registeredUsers = ['admin','test'];
-function checkRegistered(userName) {
-  let result = false;
-  _registeredUsers.map(function (v) {
-    if (v === userName) result = true;
-  });
-  return result;
-}
-function addRegistered(userName) {
-  _registeredUsers.push(userName);
-  //console.log(_registeredUsers);
-}
-function delRegistered(userName) {
-  //console.log(userName);
-  _registeredUsers = _registeredUsers.map(function (v) {
-    if (v === userName) return '';
-    else return v;
-  });
-  //console.log(_registeredUsers);
-}
