@@ -4,21 +4,14 @@
   "description": "Simple chat with nodejs and websockets",
   "main": "js/app.js",
   "dependencies": {
-    "http": "latest",
-    "url": "latest",
-    "node-static": "latest",
-    "querystring": "latest"
+    "node-static": "^0.7.7"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.0.15",
-    "babelify": "latest",
+    "babelify": "^7.2.0",
     "browserify": "^6.2.0",
-    "events": "^1.1.0",
     "faye-websocket": "^0.10.0",
-    "keymirror": "^0.1.1",
-    "object-assign": "^4.0.1",
     "uglify-js": "~2.4.15",
-    "vinyl-source-stream": "latest",
     "watchify": "^2.1.1"
   },
   "scripts": {
