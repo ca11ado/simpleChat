@@ -11,9 +11,3 @@ let SChatComponent = require('./components/SChatComponent'),
 console.log('starting app');
 
 SChatActions.connectToWS('ws://localhost:8080');
-
-/* operator ...spread
-function testFn(...rest) {
-    console.log(rest);
-}
-testFn('dd', 'tt', 'pp');*/

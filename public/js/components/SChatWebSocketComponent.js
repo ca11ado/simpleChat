@@ -15,7 +15,6 @@ const WS_TYPE_NEW = 'new',
 let WS = {
 
   connect: function(url) {
-    console.log('f:SChatWebSocketComponent > starting ws');
     if (_socket) return Error('Уже есть соединение');
 
     _socket = new WebSocket(url);
@@ -35,7 +34,7 @@ let WS = {
       } catch (e) {
         console.log('Parsing error ', e);
       }
-      console.log("f:SChatWebSocketComponent > получены данные %o", event.data);
+      //console.log("f:SChatWebSocketComponent > получены данные %o", event.data);
       switch (msg.type) {
         case MsgTypes.AUTH:
           SChatActions.authorized(msg.data.userName,msg.data.status);
