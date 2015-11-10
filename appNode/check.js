@@ -3,9 +3,11 @@
  */
 'use strict';
 
+
+const NAME_LENGTH = 15,
+      TEXT_LENGTH = 500;
 const WRONG_NAME = 'Разрешены согласные символы и подчеркивание. Длина от 2х до 10 символов',
-      WRONG_TEXT_LENGTH = 'Ограничение по длине сообщения 500 символов';
-const NAME_LENGTH = 15;
+      WRONG_TEXT_LENGTH = 'Ограничение по длине сообщения '+TEXT_LENGTH+' символов';
 
 module.exports = {
 
@@ -18,7 +20,7 @@ module.exports = {
 
   messageText: function(text) {
     let result = {error:false, errText:WRONG_TEXT_LENGTH};
-    result.error = !/(.|\s){2,500}$/.test(text);
+    result.error = text.length > TEXT_LENGTH;
     return result;
   }
 
