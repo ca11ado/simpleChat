@@ -49,6 +49,9 @@ let WS = {
         case MsgTypes.MESSAGE:
           SChatActions.receiveMessage(msg.data);
           break;
+        case MsgTypes.HISTORY:
+          SChatActions.receiveHistory(msg.data.msgs);
+          break;
         case MsgTypes.SYSTEM:
           SChatActions.receiveMessage(msg.data);
           break;

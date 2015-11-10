@@ -46,10 +46,10 @@ server.on('upgrade', function(request, socket, body) {
         case Msg.getMsgTypes().AUTH:
           var userTryName = msg.data.userName;
           _restrict = check.userName(userTryName);
-            if (_restrict.error) {
-              ws.send(JSON.stringify(Msg.createInfo({text:_restrict.errText})));
-              break;
-            }
+          if (_restrict.error) {
+            ws.send(JSON.stringify(Msg.createInfo({text:_restrict.errText})));
+            break;
+          }
           if (chn.isRegistered(msg.data.userName)) {
             ws.send(JSON.stringify(Msg.createInfo({text: 'Имя занято'})));
             break;
@@ -57,6 +57,7 @@ server.on('upgrade', function(request, socket, body) {
           _name = msg.data.userName;
           chn.subscribe(ws,_name);
           ws.send(JSON.stringify(Msg.createAuth({userName:_name,status:'success'})));
+          chn.sendHistory(ws);
           chn.sendSystemMsg('Пользователь ' + _name + ' зашел в чат');
           chn.broadcastUserList();
           break;

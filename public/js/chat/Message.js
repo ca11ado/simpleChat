@@ -21,15 +21,16 @@ function MsgAuth (data) {
   this.data = {userName: data.userName, status: data.status || ''};
 }
 
-function MsgHistory (data) {
-    this.type = MSG_TYPES.HISTORY;
-    this.data = data;
-}
-
 function MsgMessage (data) {
     this.type = MSG_TYPES.MESSAGE;
     if (!data.text) new Error('Не задан текст сообщения');
     this.data = {userName:data.userName || '',text:data.text,time:new Date().toLocaleString()};
+}
+
+function MsgHistory (data) {
+  this.type = MSG_TYPES.HISTORY;
+  if (!data.msgs) new Error('Не задан массив сообщений');
+  this.data = {msgs:data.msgs};
 }
 
 function MsgUserList (data) {
@@ -56,6 +57,9 @@ module.exports = {
     },
     createMessage: function(data) {
       return new MsgMessage(data);
+    },
+    createHistory: function(data) {
+      return new MsgHistory(data);
     },
     createUserList: function(data) {
       return new MsgUserList(data);

@@ -47,6 +47,13 @@ module.exports = {
       msgObj: msgObj
     })
   },
+  receiveHistory: function(messages){
+    console.log('f:SChatActions > receive history %o', messages);
+    SChatDispatcher.dispatch({
+      actionType: SChatConstants.WS_MESSAGE_HISTORY,
+      messages: messages
+    })
+  },
   infoMessage: function(msg) {
     console.log('f:SChatActions > receive info message %o', msg);
     SChatDispatcher.dispatch({
