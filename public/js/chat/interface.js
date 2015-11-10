@@ -48,7 +48,7 @@ let Interface = {
   },
 
   addReceivedMsg: function(msgObj) {
-    let msgEl = document.createElement('div');
+    /*let msgEl = document.createElement('div');
         msgEl.className = 'message';
     let textEl = document.createElement('span'),
         authorEl = document.createElement('span'),
@@ -62,7 +62,9 @@ let Interface = {
     msgEl.appendChild(timeEl);
     msgEl.appendChild(textEl);
 
-    eL('history').appendChild(msgEl);
+    eL('history').appendChild(msgEl);*/
+    let element = messageElement(msgObj);
+    eL('history').appendChild(element);
   }
 };
 
@@ -73,6 +75,31 @@ function sendMsg() {
 
 function eL(id){
   return document.getElementById(id);
+}
+
+function messageElement(msgObj) {
+  let p = document.createElement('p');
+
+  let name = msgObj.userName ? document.createElement('span') : false;
+  if (name) {
+    name.className = 'msgUserName';
+    name.appendChild(document.createTextNode(msgObj.userName));
+  }
+  let time = document.createElement('span');
+  time.className = 'msgTime';
+  time.appendChild(document.createTextNode(msgObj.time));
+  let text = document.createElement('span');
+  text.className = 'msgText';
+  text.appendChild(document.createTextNode(msgObj.text));
+
+  let p2 = document.createElement('p');
+  p2.className = 'msgNameAndTime';
+  p2.appendChild(name);
+  p2.appendChild(time);
+
+  p.appendChild(p2);
+  p.appendChild(text);
+  return p;
 }
 
 module.exports = Interface;
