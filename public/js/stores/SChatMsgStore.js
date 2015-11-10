@@ -62,6 +62,10 @@ SChatDispatcher.register(function(action){
       updateReceivedMsg(action.msgObj);
       SChatMsgStore.emit(CHANGE_EVENT);
       break;
+    case SChatConstants.WS_SYSMESSAGE_RECEIVE:
+      updateReceivedMsg(action.msgObj);
+      SChatMsgStore.emit(CHANGE_EVENT);
+      break;
     default:
     //nothing
   }

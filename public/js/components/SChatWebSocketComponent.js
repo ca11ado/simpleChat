@@ -49,6 +49,9 @@ let WS = {
         case MsgTypes.MESSAGE:
           SChatActions.receiveMessage(msg.data);
           break;
+        case MsgTypes.SYSTEM:
+          SChatActions.receiveMessage(msg.data);
+          break;
         default:
         //todo don't know this type
       }

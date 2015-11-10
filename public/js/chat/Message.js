@@ -59,9 +59,9 @@ MsgUserList.prototype = Object.create(Msg.prototype);
 MsgUserList.prototype.constructor = MsgUserList;
 
 function MsgSystem (data) {
-    if (!data.text) new Error('data.text is indefined');
-    this.type = MSG_TYPES.SYSTEM;
-    this.data = {text: data.text};
+  if (!data.text) new Error('data.text is indefined');
+  this.type = MSG_TYPES.SYSTEM;
+  this.data = {text:data.text,time:new Date().toLocaleString()};
 }
 MsgSystem.prototype = Object.create(Msg.prototype);
 MsgSystem.prototype.constructor = MsgSystem;

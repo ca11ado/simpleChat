@@ -81,6 +81,7 @@ server.on('upgrade', function(request, socket, body) {
       console.log('close', event.code, event.reason);
       chn.unSubscribe(ws, _name);
       ws = null;
+      chn.sendSystemMsg('Пользователь ' + _name + ' вышел из чата');
       chn.broadcastUserList();
     });
   }

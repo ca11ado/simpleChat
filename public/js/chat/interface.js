@@ -94,7 +94,7 @@ function messageElement(msgObj) {
 
   let p2 = document.createElement('p');
   p2.className = 'msgNameAndTime';
-  p2.appendChild(name);
+  if (name) p2.appendChild(name);
   p2.appendChild(time);
 
   p.appendChild(p2);
