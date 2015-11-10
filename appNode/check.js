@@ -10,7 +10,7 @@ module.exports = {
 
   userName: function(name){
     let result = {error:false, errText:WRONG_NAME};
-    result.error = !/^\w{2,10}$/.test(name);
+    result.error = !/^[А-Яа-я\w]{2,10}$/.test(name);
     return result;
   },
 
