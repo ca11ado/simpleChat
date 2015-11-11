@@ -22,7 +22,7 @@ eL('msgText').onkeydown = function (e) {
     sendMsg();
   }
 };
-buttonSend.onclick = function (e) {
+if (buttonSend) buttonSend.onclick = function (e) {
   sendMsg();
 };
 

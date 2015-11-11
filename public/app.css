@@ -12,11 +12,12 @@
     padding: 0 4px;
 }
 #chat {
-    width: 550px;
+    width: 700px;
 }
 #userList{
     width: 30%;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 #userChat {
     width: 65%;
@@ -25,6 +26,8 @@
 #history {
     height: 100%;
     overflow-y: scroll;
+    overflow-x: hidden;
+    word-break: break-all;
 }
 #msgText {
     width: 99%;
