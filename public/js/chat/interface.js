@@ -2,6 +2,7 @@
  * Created by tos on 07.11.2015.
  */
 
+const INFO_HIDE_TIME = 6000;
 
 let Msg = require('./Message'),
     SChatActions = require('../actions/SChatActions'),
@@ -34,7 +35,7 @@ let Interface = {
   },
 
   showInfoMsg: function(msg) {
-    eL('info').textContent = msg;
+    showInfoMessage(msg);
   },
 
   showSection: function(section) {
@@ -71,6 +72,14 @@ let Interface = {
     }
   }
 };
+
+function showInfoMessage(text) {
+  let el = eL('info');
+  el.textContent = text;
+  setTimeout(function () {
+    el.textContent = '';
+  }, INFO_HIDE_TIME);
+}
 
 function sendMsg() {
   let text = eL('msgText');
