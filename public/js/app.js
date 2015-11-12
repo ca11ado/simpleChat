@@ -2,10 +2,8 @@
  * Created by tos on 06.11.2015.
  */
 
-let SChatComponent = require('./components/SChatComponent'),
-    SChatUsersStore = require('./stores/SChatUsersStore'),
-    SChatMsgStore = require('./stores/SChatMsgStore'),
-    SChatWebSocketComponent = require('./components/SChatWebSocketComponent'),
+let SChatWebSocketComponent = require('./components/SChatWebSocketComponent'),
+    SChatComponent = require('./components/SChatComponent'),
     SChatActions = require('./actions/SChatActions');
 
 console.log('starting app');
