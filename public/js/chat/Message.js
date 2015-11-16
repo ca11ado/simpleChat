@@ -14,61 +14,34 @@ const MSG_TYPES = keyMirror({
     SYSTEM: null
 });
 
-function MsgAuth (data) {
-  if (!data.userName) new Error('Не задан параметр userName');
-
-  this.type = MSG_TYPES.AUTH;
-  this.data = {userName: data.userName, status: data.status || ''};
-}
-
-function MsgMessage (data) {
-    this.type = MSG_TYPES.MESSAGE;
-    if (!data.text) new Error('Не задан текст сообщения');
-    this.data = {userName:data.userName || '',text:data.text,time:new Date().toLocaleString()};
-}
-
-function MsgHistory (data) {
-  this.type = MSG_TYPES.HISTORY;
-  if (!data.msgs) new Error('Не задан массив сообщений');
-  this.data = {msgs:data.msgs};
-}
-
-function MsgUserList (data) {
-  if (!data.users) new Error('Не задан список пользователей');
-  this.type = MSG_TYPES.USERLIST;
+function Message(type,data) {
+  this.type = type;
   this.data = data;
-}
-
-function MsgSystem (data) {
-  if (!data.text) new Error('data.text is indefined');
-  this.type = MSG_TYPES.SYSTEM;
-  this.data = {text:data.text,time:new Date().toLocaleString()};
-}
-
-function MsgInfo (data) {
-    if (!data.text) new Error('data.text is indefined');
-    this.type = MSG_TYPES.INFO;
-    this.data = {text: data.text};
 }
 
 module.exports = {
     createAuth: function(data) {
-      return new MsgAuth(data);
+      data = {userName: data.userName, status: data.status || ''};
+      return new Message(MSG_TYPES.AUTH, data);
     },
     createMessage: function(data) {
-      return new MsgMessage(data);
+      if (!data.text) new Error('Не задан текст сообщения');
+      data = {userName:data.userName || '',text:data.text,time:new Date().toLocaleString()};
+      return new Message(MSG_TYPES.MESSAGE, data);
     },
     createHistory: function(data) {
-      return new MsgHistory(data);
+      if (!data.msgs) new Error('Не задан массив сообщений');
+      return new Message(MSG_TYPES.HISTORY, data);
     },
     createUserList: function(data) {
-      return new MsgUserList(data);
+      return new Message(MSG_TYPES.USERLIST, data);
     },
     createSysMsg: function(data){
-      return new MsgSystem(data);
+      data = {text:data.text,time:new Date().toLocaleString()};
+      return new Message(MSG_TYPES.SYSTEM, data);
     },
     createInfo: function(data){
-      return new MsgInfo(data);
+      return new Message(MSG_TYPES.INFO, data);
     },
     getMsgTypes: function() {
       return MSG_TYPES;
