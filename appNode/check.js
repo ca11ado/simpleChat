@@ -5,9 +5,12 @@
 
 
 const NAME_LENGTH = 15,
-      TEXT_LENGTH = 500;
+      TEXT_LENGTH = 500,
+      DELAY_BETWEEN_MSG = 250;
+
 const WRONG_NAME = 'Разрешены согласные символы и подчеркивание. Длина от 2х до 10 символов',
-      WRONG_TEXT_LENGTH = 'Ограничение по длине сообщения '+TEXT_LENGTH+' символов';
+      WRONG_TEXT_LENGTH = 'Ограничение по длине сообщения '+TEXT_LENGTH+' символов',
+      TOO_OFTEN = 'Сообщения отправляются слишком часто';
 
 module.exports = {
 
@@ -21,6 +24,13 @@ module.exports = {
   messageText: function(text) {
     let result = {error:false, errText:WRONG_TEXT_LENGTH};
     result.error = text.length > TEXT_LENGTH;
+    return result;
+  },
+
+  frequency: function(lastTime) {
+    let result = {error: false, errText: TOO_OFTEN},
+        timeNow = new Date();
+    if ( (timeNow.getTime() - lastTime.getTime()) < DELAY_BETWEEN_MSG) result.error = true;
     return result;
   }
 

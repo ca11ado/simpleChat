@@ -20,7 +20,8 @@ var server = http.createServer(function (request, response) {
 }).listen(8080);
 
 server.on('upgrade', function(request, socket, body) {
-  let _name;
+  let _name,
+      _lastMsgTime;
 
   let _msg,
       _msgTime,
@@ -40,6 +41,7 @@ server.on('upgrade', function(request, socket, body) {
       msg.type = msg.type ? msg.type : 'unknown';
 
       switch (msg.type) {
+
         case Msg.getMsgTypes().AUTH:
           var userTryName = msg.data.userName;
           _restrict = check.userName(userTryName);
@@ -58,18 +60,23 @@ server.on('upgrade', function(request, socket, body) {
           chn.sendSystemMsg('Пользователь ' + _name + ' зашел в чат');
           chn.broadcastUserList();
           break;
+
         case Msg.getMsgTypes().MESSAGE:
+          if (_lastMsgTime) _restrict = check.frequency(_lastMsgTime);
+
           _msgText = msg.data.text;
           _msgTime = msg.data.time;
-          _restrict = check.messageText(_msgText);
+          _restrict = _restrict.error ? _restrict : check.messageText(_msgText);
           if (_msgText && _msgTime && !_restrict.error) {
             _msg = Msg.createMessage({userName:_name,text:_msgText,time:_msgTime});
             chn.broadcast(_msg);
+            _lastMsgTime = new Date();
           }
           if (_restrict.error) {
             ws.send(JSON.stringify(Msg.createInfo({text:_restrict.errText})));
           }
           break;
+
         default:
               //unknown
       }
@@ -79,7 +86,7 @@ server.on('upgrade', function(request, socket, body) {
       //console.log('close', event.code, event.reason);
       chn.unSubscribe(ws, _name);
       ws = null;
-      if (_name) chn.sendSystemMsg('Пользователь ' + _name + ' вышел из чата');
+      chn.sendSystemMsg('Пользователь ' + _name + ' вышел из чата');
       chn.broadcastUserList();
     });
   }
