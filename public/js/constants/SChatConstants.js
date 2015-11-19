@@ -2,6 +2,8 @@
  * Created by tos on 08.11.2015.
  */
 
+'use strict';
+
 let keyMirror = require('../lib/MyUtils').keyMirror;
 
 let SChatConstants = keyMirror({

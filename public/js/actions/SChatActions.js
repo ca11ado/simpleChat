@@ -2,6 +2,8 @@
  * Created by tos on 08.11.2015.
  */
 
+'use strict';
+
 let SChatDispatcher = require('../dispatcher/SChatDispatcher'),
     SChatConstants = require('../constants/SChatConstants');
 
