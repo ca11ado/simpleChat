@@ -14,6 +14,8 @@ let buttonReg = eL('button');
 let buttonSend = eL('msgSend');
 let history = eL('history');
 
+let chatScrollInfo = scrollingInfo(history);
+
 buttonReg.onclick = function(e){
   let input = eL('login').querySelector('input');
   if (input.value) SChatActions.sendMessage(Msg.createAuth({userName: input.value}));
@@ -28,9 +30,8 @@ if (buttonSend) buttonSend.onclick = function (e) {
   sendMsg();
 };
 
-history.addEventListener('scroll', function () {
-  console.log('scrolling');
-
+history.addEventListener('scroll', function (e) {
+  //console.log(chatScrollInfo());
 });
 
 let Interface = {
@@ -123,20 +124,29 @@ function messageElement(msgObj) {
   return p;
 }
 
-function scrolling() {
-  let _lastPosition = 0;
+function scrollingInfo(element) {
+  let _lastScrollTop = 0;
   let result = {
     position: '', // top, bottom, between
     direction: '' // up, down
   };
-  return function(currentPosition, scrollHeight) {
-    if (currentPosition - _lastPosition > 0) result.direction = 'down';
-    else result.direction = 'up';
+  return function() {
+    let currentPosition,
+        currentScrollTop;
 
-    if (currentPosition == 0) result.position = 'top';
-    else if (currentPosition == scrollHeight) result.position = 'borrom';
-    else result.position = 'between';
+    currentScrollTop = element.scrollTop;
+    if (currentScrollTop - _lastScrollTop > 0) result.direction = SChatConstants.SCROLL_DIRECTION_DOWN;
+    else result.direction = SChatConstants.SCROLL_DIRECTION_UP;
 
+    if (currentScrollTop) {
+      if (currentScrollTop == element.scrollHeight - element.clientHeight) currentPosition = SChatConstants.SCROLL_POSITION_BOTTOM;
+      else currentPosition = SChatConstants.SCROLL_POSITION_BETWEEN;
+    } else {
+      currentPosition = SChatConstants.SCROLL_POSITION_TOP;
+    }
+    result.position = currentPosition;
+
+    _lastScrollTop = currentScrollTop;
     return result;
   }
 }

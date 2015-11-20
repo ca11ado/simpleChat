@@ -23,9 +23,10 @@ SChatSectionsStore.addChangeListener(function () {
 SChatMsgStore.addChangeListener(function () {
   let msgObj = SChatMsgStore.getReceivedMessage(),
       scrollTo = SChatMsgStore.getPositionToScroll();
+
   if (msgObj) {
     ChatInterface.addReceivedMsg(msgObj);
-    SChatActions.actionScrollTo(SChatConstants.SCROLL_POSITION_BOTTOM);
+    if (SChatMsgStore.getAutoScrollStatus()) SChatActions.actionScrollTo(SChatConstants.SCROLL_POSITION_BOTTOM);
   }
   if (scrollTo) ChatInterface.scrollChat(scrollTo);
 });

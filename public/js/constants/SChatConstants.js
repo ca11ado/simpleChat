@@ -20,7 +20,10 @@ let SChatConstants = keyMirror({
 
     SCROLL_AUTO_ENABLED: null,
     SCROLL_POSITION_BOTTOM: null,
-    SCROLL_POSITION_TOP: null
+    SCROLL_POSITION_TOP: null,
+    SCROLL_POSITION_BETWEEN: null,
+    SCROLL_DIRECTION_UP: null,
+    SCROLL_DIRECTION_DOWN: null
 });
 
 module.exports = SChatConstants;
