@@ -69,5 +69,11 @@ module.exports = {
       actionType: SChatConstants.SCROLL_AUTO_ENABLED,
       status: enabled
     });
+  },
+  actionScrollTo: function(position) {
+    SChatDispatcher.dispatch({
+      actionType: SChatConstants.SCROLL_TO,
+      position: position
+    })
   }
 };

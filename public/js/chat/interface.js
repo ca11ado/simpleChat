@@ -65,13 +65,14 @@ let Interface = {
     eL('history').appendChild(element);
   },
 
-  scrollChat: function(direction) {
+  scrollChat: function(position) {
     let chatHistory = eL('history');
-    switch (direction) {
-      case SChatConstants.SCROLL_BOTTOM:
+    switch (position) {
+      case SChatConstants.SCROLL_POSITION_BOTTOM:
         chatHistory.scrollTop = chatHistory.scrollHeight - chatHistory.clientHeight;
         break;
-      case 'top':
+      case SChatConstants.SCROLL_POSITION_TOP:
+        //todo дописать скролл к топу
         break;
       default:
     }

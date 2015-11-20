@@ -16,9 +16,11 @@ let SChatConstants = keyMirror({
     WS_SYSMESSAGE_RECEIVE: null,
     WS_MESSAGE_HISTORY: null,
     WS_INFO_MSG: null,
+    SCROLL_TO: null,
 
     SCROLL_AUTO_ENABLED: null,
-    SCROLL_BOTTOM: null
+    SCROLL_POSITION_BOTTOM: null,
+    SCROLL_POSITION_TOP: null
 });
 
 module.exports = SChatConstants;
