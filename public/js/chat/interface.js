@@ -12,6 +12,7 @@ let Msg = require('./Message'),
 /* Обработчики интерфейса */
 let buttonReg = eL('button');
 let buttonSend = eL('msgSend');
+let history = eL('history');
 
 buttonReg.onclick = function(e){
   let input = eL('login').querySelector('input');
@@ -27,6 +28,10 @@ if (buttonSend) buttonSend.onclick = function (e) {
   sendMsg();
 };
 
+history.addEventListener('scroll', function () {
+  console.log('scrolling');
+
+});
 
 let Interface = {
 
@@ -115,6 +120,24 @@ function messageElement(msgObj) {
   p.appendChild(p2);
   p.appendChild(text);
   return p;
+}
+
+function scrolling() {
+  let _lastPosition = 0;
+  let result = {
+    position: '', // top, bottom, between
+    direction: '' // up, down
+  };
+  return function(currentPosition, scrollHeight) {
+    if (currentPosition - _lastPosition > 0) result.direction = 'down';
+    else result.direction = 'up';
+
+    if (currentPosition == 0) result.position = 'top';
+    else if (currentPosition == scrollHeight) result.position = 'borrom';
+    else result.position = 'between';
+
+    return result;
+  }
 }
 
 module.exports = Interface;
