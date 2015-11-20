@@ -11,7 +11,6 @@ jest.dontMock('../../lib/MyUtils');
 describe("SChat Msg Store", function () {
 
   var SChatConstants = require('../../constants/SChatConstants');
-  //console.log('Test console log', SChatConstants);
   var SChatDispatcher;
   var SChatMsgStore;
   var callback;
@@ -75,7 +74,8 @@ describe("SChat Msg Store", function () {
   it('receive an url for connection', function () {
     callback(actionConnectToWS);
     // todo use "toMatch" to validate received url
-    expect(SChatMsgStore.getUrl()).toEqual(jasmine.any(String));
+    //expect(SChatMsgStore.getUrl()).toEqual(jasmine.any(String));
+    expect(SChatMsgStore.getUrl()).toMatch(/^ws:\/\/[\w|\d]*:\d{2,5}$/);
   });
 
   it('update variable with sending message', function () {

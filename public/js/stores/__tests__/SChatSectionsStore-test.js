@@ -15,13 +15,6 @@ describe("SChat Sections Store", function () {
   var SChatSectionsStore;
   var callback;
 
-  // класс создания сообщений
-  function Message(name,text) {
-    this.userName = name;
-    this.time = new Date();
-    this.text = text;
-  }
-
   // mock actions
   var actionConnectionOpen = {
     actionType: SChatConstants.CONN_OPEN
