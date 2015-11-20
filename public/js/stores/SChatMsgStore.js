@@ -12,7 +12,8 @@ const CHANGE_EVENT = 'change';
 
 let _sendingMessage,
     _receivedMessage,
-    _url;
+    _url,
+    _autoScrollEnabled = true;
 
 function updateSendedMsg(msg){
   _sendingMessage = msg;
@@ -24,6 +25,10 @@ function updateReceivedMsg(msgObj) {
 
 function updateUrl(url) {
   _url = url;
+}
+
+function updateAutoScrollStatus(enabled) {
+  _autoScrollEnabled = enabled;
 }
 
 let SChatMsgStore = Object.assign({}, Emitter.prototype, {
@@ -46,6 +51,10 @@ let SChatMsgStore = Object.assign({}, Emitter.prototype, {
 
   getUrl: function(){
     return _url;
+  },
+
+  getAutoScrollStatus: function() {
+    return _autoScrollEnabled;
   }
 
 });
@@ -69,6 +78,10 @@ SChatDispatcher.register(function(action){
         updateReceivedMsg(v);
         SChatMsgStore.emit(CHANGE_EVENT);
       });
+      break;
+    case SChatConstants.SCROLL_AUTO_ENABLED:
+      updateAutoScrollStatus(action.status);
+      SChatMsgStore.emit(CHANGE_EVENT);
       break;
     default:
     //nothing

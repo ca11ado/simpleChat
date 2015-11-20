@@ -50,6 +50,10 @@ describe("SChat Msg Store", function () {
     actionType: SChatConstants.WS_MESSAGE_HISTORY,
     messages: arrOfMessages(10, 'Тестовое сообщение истории', 't0s')
   };
+  var actionDisableAutoSCroll = {
+    actionType: SChatConstants.SCROLL_AUTO_ENABLED,
+    status: false
+  };
 
   beforeEach(function () {
     SChatDispatcher = require('../../dispatcher/SChatDispatcher');
@@ -61,13 +65,15 @@ describe("SChat Msg Store", function () {
     expect(SChatDispatcher.register.mock.calls.length).toBe(1);
   });
 
-  it('it initializes with empty values', function () {
+  it('it initializes', function () {
     let sendingMsg = SChatMsgStore.getSendingMessage(),
         receivedMsg = SChatMsgStore.getReceivedMessage(),
         url = SChatMsgStore.getUrl();
+    let autoScroll = SChatMsgStore.getAutoScrollStatus();
 
     let empty = !sendingMsg && !receivedMsg && !url;
     expect(empty).toBe(true);
+    expect(autoScroll).toBe(true);
   });
 
   it('receive an url for connection', function () {
@@ -101,4 +107,8 @@ describe("SChat Msg Store", function () {
     expect(msgObj.text).toBe('Тестовое сообщение истории 9');
   });
 
+  it('disable auto scrolling', function () {
+    callback(actionDisableAutoSCroll);
+    expect(SChatMsgStore.getAutoScrollStatus()).toBe(false);
+  });
 });

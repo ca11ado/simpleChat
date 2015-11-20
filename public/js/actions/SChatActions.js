@@ -63,5 +63,11 @@ module.exports = {
       actionType: SChatConstants.WS_INFO_MSG,
       msg: msg
     })
+  },
+  autoScrollEnabled: function(enabled) {
+    SChatDispatcher.dispatch({
+      actionType: SChatConstants.SCROLL_AUTO_ENABLED,
+      status: enabled
+    });
   }
 };
