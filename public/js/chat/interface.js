@@ -32,6 +32,9 @@ if (buttonSend) buttonSend.onclick = function (e) {
 
 history.addEventListener('scroll', function (e) {
   //console.log(chatScrollInfo());
+  let scroll = chatScrollInfo();
+  if (scroll.direction === SChatConstants.SCROLL_DIRECTION_UP) SChatActions.autoScrollEnabled(false);
+  else if(scroll.position === SChatConstants.SCROLL_POSITION_BOTTOM) SChatActions.autoScrollEnabled(true);
 });
 
 let Interface = {
