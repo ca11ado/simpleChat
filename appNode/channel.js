@@ -27,7 +27,7 @@ Channel.prototype.unSubscribe = function(client, userName){
 };
 
 Channel.prototype.broadcast = function (msg) {
-  if (msg.type === Message.getMsgTypes().MESSAGE) this._history.push(msg);
+  if (msg.type === Message.getMsgTypes().MESSAGE) this._history.push(msg.data);
   this._clients.map(function (v) {
     v.send(JSON.stringify(msg));
   });

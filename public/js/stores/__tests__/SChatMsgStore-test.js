@@ -28,8 +28,7 @@ describe("SChat Msg Store", function () {
     templateName = templateName || 'TestUser';
 
     for (let i=0; i<count; i++) {
-      //todo возможно засовывание каждого сообщения в объект со свойством "data" слега запутывает код
-      result.push({data:new Message(templateName, templateText + ' ' + i)});
+      result.push(new Message(templateName, templateText + ' ' + i));
     }
     return result;
   }

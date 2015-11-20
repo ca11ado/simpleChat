@@ -66,7 +66,7 @@ SChatDispatcher.register(function(action){
       break;
     case SChatConstants.WS_MESSAGE_HISTORY:
       action.messages.map(function (v) {
-        updateReceivedMsg(v.data);
+        updateReceivedMsg(v);
         SChatMsgStore.emit(CHANGE_EVENT);
       });
       break;
