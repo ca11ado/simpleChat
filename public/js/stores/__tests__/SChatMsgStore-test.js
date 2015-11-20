@@ -50,9 +50,13 @@ describe("SChat Msg Store", function () {
     actionType: SChatConstants.WS_MESSAGE_HISTORY,
     messages: arrOfMessages(10, 'Тестовое сообщение истории', 't0s')
   };
-  var actionDisableAutoSCroll = {
+  var actionDisableAutoScroll = {
     actionType: SChatConstants.SCROLL_AUTO_ENABLED,
     status: false
+  };
+  var actionScrollTo = {
+    actionType: SChatConstants.SCROLL_TO,
+    position: SChatConstants.SCROLL_POSITION_BOTTOM
   };
 
   beforeEach(function () {
@@ -108,7 +112,12 @@ describe("SChat Msg Store", function () {
   });
 
   it('disable auto scrolling', function () {
-    callback(actionDisableAutoSCroll);
+    callback(actionDisableAutoScroll);
     expect(SChatMsgStore.getAutoScrollStatus()).toBe(false);
+  });
+
+  it('scrolls to bottom', function () {
+    callback(actionScrollTo);
+    expect(SChatMsgStore.getPositionToScroll()).toBe(SChatConstants.SCROLL_POSITION_BOTTOM);
   });
 });
