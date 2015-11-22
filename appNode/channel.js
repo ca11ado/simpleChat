@@ -58,4 +58,8 @@ Channel.prototype.sendHistory = function (client) {
   client.send(JSON.stringify(Message.createHistory({msgs:this._history})));
 };
 
+Channel.prototype.clientsCount = function () {
+  return this._clients.length;
+};
+
 module.exports = Channel;

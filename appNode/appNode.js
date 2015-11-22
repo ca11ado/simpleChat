@@ -5,11 +5,15 @@ var stat = require('node-static');
 var fileServer = new stat.Server('./public', { cache: 3600 });
 var Msg = require('../public/js/chat/Message');
 var Channel = require('./channel');
+let OutLog = require('./output');
 
 var WebSocket = require('faye-websocket');
 
 let chn = new Channel('def');
 let check = require('./check');
+
+let connLog = new OutLog('Информация о соединениях');
+connLog.show();
 
 var server = http.createServer(function (request, response) {
   request.addListener('end', function () {
@@ -59,6 +63,8 @@ server.on('upgrade', function(request, socket, body) {
           chn.sendHistory(ws);
           chn.sendSystemMsg('Пользователь ' + _name + ' зашел в чат');
           chn.broadcastUserList();
+
+          connLog.addLine('Количество соединений', chn.clientsCount());
           break;
 
         case Msg.getMsgTypes().MESSAGE:
@@ -88,6 +94,7 @@ server.on('upgrade', function(request, socket, body) {
       ws = null;
       chn.sendSystemMsg('Пользователь ' + _name + ' вышел из чата');
       chn.broadcastUserList();
+      connLog.addLine('Количество соединений', chn.clientsCount());
     });
   }
 });
