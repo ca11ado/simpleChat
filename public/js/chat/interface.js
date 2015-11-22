@@ -13,8 +13,11 @@ let Msg = require('./Message'),
 let buttonReg = eL('button');
 let buttonSend = eL('msgSend');
 let history = eL('history');
+let loginInput = document.querySelector('#login input');
 
 let chatScrollInfo = scrollingInfo(history);
+loginInput.focus();
+console.log(loginInput);
 
 buttonReg.onclick = function(e){
   let input = eL('login').querySelector('input');
